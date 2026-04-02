@@ -1,0 +1,10 @@
+{
+  "name": "project-dashboard",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync-status.mjs",
+    "serve": "python3 -m http.server 4173"
+  }
+}

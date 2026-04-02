@@ -1,0 +1,211 @@
+{
+  "generatedAt": "2026-04-02T19:14:29.729Z",
+  "summary": {
+    "totalProjects": 4,
+    "activeProjects": 3,
+    "averageProgress": 41,
+    "needsAttention": 4
+  },
+  "projects": [
+    {
+      "name": "channel-manager",
+      "state": "in_progress",
+      "progressPercent": 80,
+      "progressLabel": "broad platform scaffolding and documentation exist, with an active refactor underway in backend integrations and tenant admin",
+      "lastUpdated": "2026-04-03",
+      "repoPathName": "channel-manager",
+      "hasAgentsDoc": true,
+      "git": {
+        "branch": "master",
+        "gitRootType": "dedicated",
+        "hasRemote": false,
+        "dirtyCount": 30
+      },
+      "currentGoal": [
+        "Stabilize the current backend refactor, verify the solution still builds cleanly, and bring the documentation back in line with the actual codebase state."
+      ],
+      "doneRecently": [
+        "Built a large modular-monolith hotel platform with backend modules, Docker setup, CI workflows, and a frontend scaffold.",
+        "Added detailed architecture docs such as `README.md`, `DELIVERY_CHECKLIST.md`, `IMPLEMENTATION_SUMMARY.md`, and `FILE_INDEX.md`.",
+        "Added or refined many OTA adapter, payments, and tenant-admin pieces."
+      ],
+      "inProgress": [
+        "The working tree has active changes across:",
+        "OTA adapters",
+        "API host wiring",
+        "tenant-admin services and persistence",
+        "multiple project files",
+        "Current diff stats show a substantial simplification/refactor rather than a tiny patch."
+      ],
+      "nextUp": [
+        "Build and test the backend after the current refactor, then capture the exact failures if any remain.",
+        "Review the \"100% complete\" documentation claims and downgrade or nuance them where reality is still evolving.",
+        "Add a short agent-facing handoff section to the main docs if this repo will keep being worked on by multiple Codex sessions."
+      ],
+      "blockers": [
+        "The docs currently present the platform as fully complete, but the working tree shows active architectural churn.",
+        "Future agents could trust the completion docs too literally and miss the current refactor context.",
+        "`.env` exists locally, so environment-sensitive work should avoid exposing secrets in commits or notes."
+      ],
+      "repoNotes": [
+        "Branch: `master`",
+        "Key docs:",
+        "`README.md`",
+        "`DELIVERY_CHECKLIST.md`",
+        "`IMPLEMENTATION_SUMMARY.md`",
+        "`FILE_INDEX.md`",
+        "Current dirty files are concentrated in API wiring, adapters, payment integration, and tenant-admin modules."
+      ],
+      "narrative": {
+        "currentGoal": "Stabilize the current backend refactor, verify the solution still builds cleanly, and bring the documentation back in line with the actual codebase state.",
+        "inProgress": "The working tree has active changes across:"
+      }
+    },
+    {
+      "name": "pawPetrol",
+      "state": "in_progress",
+      "progressPercent": 45,
+      "progressLabel": "two related Python video-generation pipelines exist; one is a prototype and one is under active iteration",
+      "lastUpdated": "2026-04-03",
+      "repoPathName": "pawPetrol",
+      "hasAgentsDoc": true,
+      "git": {
+        "branch": "master",
+        "gitRootType": "shared",
+        "hasRemote": false,
+        "dirtyCount": 1
+      },
+      "currentGoal": [
+        "Consolidate the project direction around the strongest episode-generation pipeline and get one end-to-end content run working reliably."
+      ],
+      "doneRecently": [
+        "Built two subprojects:",
+        "`detective-biscuit-factory`: a simpler episode pipeline with story, scene planning, images, narration, subtitles, audio mix, and export stages",
+        "`detective_dog_ai`: a more advanced content engine with character profiles, scene graphing, retention hooks, timing control, overlays, and export",
+        "`detective_dog_ai` shows active work on multi-character support, story generation, validation, subtitles, and ComfyUI integration."
+      ],
+      "inProgress": [
+        "The project appears to be evolving from the simpler Biscuit pipeline toward the more advanced `detective_dog_ai` engine.",
+        "`detective_dog_ai` has uncommitted changes and new files around characters, scripts, and scheduling."
+      ],
+      "nextUp": [
+        "Decide whether `detective_dog_ai` is now the canonical pipeline. If yes, say so explicitly in both root docs and subproject docs.",
+        "Run one clean end-to-end generation pass with documented prerequisites and capture the exact setup steps.",
+        "Add a top-level README comparing the two subprojects and explaining when each should be used."
+      ],
+      "blockers": [
+        "The repo contains overlapping pipelines, which increases drift and makes it unclear which code path is authoritative.",
+        "Local model, asset, and API-key dependencies are implied by the code but are not documented at the root.",
+        "Because the root folder is not its own git repo, status can be missed unless agents also inspect the nested repos."
+      ],
+      "repoNotes": [
+        "Nested git repos detected:",
+        "`detective-biscuit-factory` on branch `master`",
+        "`detective_dog_ai` on branch `main`",
+        "The actively changing subproject is `detective_dog_ai`."
+      ],
+      "narrative": {
+        "currentGoal": "Consolidate the project direction around the strongest episode-generation pipeline and get one end-to-end content run working reliably.",
+        "inProgress": "The project appears to be evolving from the simpler Biscuit pipeline toward the more advanced `detective_dog_ai` engine."
+      }
+    },
+    {
+      "name": "verifyAI",
+      "state": "in_progress",
+      "progressPercent": 35,
+      "progressLabel": "MVP frontend and backend are scaffolded, but product docs, testing, and operational polish are still thin",
+      "lastUpdated": "2026-04-03",
+      "repoPathName": "verifyAI",
+      "hasAgentsDoc": true,
+      "git": {
+        "branch": "master",
+        "gitRootType": "shared",
+        "hasRemote": false,
+        "dirtyCount": 1
+      },
+      "currentGoal": [
+        "Mature the current proof of concept into a documented, testable product for evaluating challenge or verification-system resilience."
+      ],
+      "doneRecently": [
+        "Built a React + Vite frontend with a landing page, input flow, result cards, and recommendation display.",
+        "Built a Node/Express backend with:",
+        "health endpoint",
+        "capture flow",
+        "AI-analysis call",
+        "score calculation",
+        "Wired the frontend to call the backend and display the returned analysis, risk level, and captured image.",
+        "Added Dockerfiles plus a root `docker-compose.yml`."
+      ],
+      "inProgress": [
+        "The app is beyond a blank scaffold, but several pieces still read like a prototype:",
+        "frontend README is still the default Vite template",
+        "backend has no real test script",
+        "the operational setup is not documented from the root"
+      ],
+      "nextUp": [
+        "Replace the frontend template README with product-specific docs and add a root README.",
+        "Add one reproducible local run path that covers frontend, backend, and any model dependencies.",
+        "Add tests around score calculation and API-level validation, then record known limitations clearly."
+      ],
+      "blockers": [
+        "The root project has no README, which makes handoff quality poor.",
+        "The git history is tied to the shared `/Users/aryansingh/repos` root rather than a dedicated repo.",
+        "The backend currently exposes only a narrow test flow and lacks confidence-building test coverage."
+      ],
+      "repoNotes": [
+        "Key files:",
+        "`frontend/src/App.jsx`",
+        "`backend/index.js`",
+        "`backend/aiEngine.js`",
+        "`backend/scoringEngine.js`",
+        "`docker-compose.yml`"
+      ],
+      "narrative": {
+        "currentGoal": "Mature the current proof of concept into a documented, testable product for evaluating challenge or verification-system resilience.",
+        "inProgress": "The app is beyond a blank scaffold, but several pieces still read like a prototype:"
+      }
+    },
+    {
+      "name": "clipMaker",
+      "state": "planned",
+      "progressPercent": 5,
+      "progressLabel": "folder exists but product scaffolding has not started",
+      "lastUpdated": "2026-04-03",
+      "repoPathName": "clipMaker",
+      "hasAgentsDoc": true,
+      "git": {
+        "branch": "master",
+        "gitRootType": "shared",
+        "hasRemote": false,
+        "dirtyCount": 1
+      },
+      "currentGoal": [
+        "Clarify the actual product scope and create the first real project scaffold."
+      ],
+      "doneRecently": [
+        "Created the project folder.",
+        "IDE metadata exists in `.idea/`, which suggests early setup work happened locally."
+      ],
+      "inProgress": [
+        "No application code or runtime scaffold was found during inspection."
+      ],
+      "nextUp": [
+        "Define the product in one paragraph: what `clipMaker` should do, for whom, and the preferred stack.",
+        "Create a minimal runnable scaffold and a README that explains local setup.",
+        "Decide whether this should become its own git repo instead of living only under the shared `/Users/aryansingh/repos` git root."
+      ],
+      "blockers": [
+        "The folder name implies a video or editing tool, but there is not enough code yet to infer the intended architecture safely.",
+        "Without a README or entrypoint, future agents would have to guess and may pull the project in the wrong direction."
+      ],
+      "repoNotes": [
+        "Files currently detected: `.idea/.gitignore`, `.idea/misc.xml`, `.idea/workspace.xml`",
+        "No `README`, `package.json`, `requirements.txt`, `pyproject.toml`, or source tree was found."
+      ],
+      "narrative": {
+        "currentGoal": "Clarify the actual product scope and create the first real project scaffold.",
+        "inProgress": "No application code or runtime scaffold was found during inspection."
+      }
+    }
+  ]
+}

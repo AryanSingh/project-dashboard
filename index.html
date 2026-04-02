@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Dashboard</title>
+    <meta
+      name="description"
+      content="A mobile-friendly project dashboard generated from repo STATUS.md files."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">Codex Workspace Snapshot</p>
+        <div class="hero-grid">
+          <div>
+            <h1>Project Dashboard</h1>
+            <p class="hero-copy">
+              A single place to see what is active, what is drifting, and what the next concrete move is across your repos.
+            </p>
+          </div>
+          <div class="hero-panel">
+            <div class="sync-label">Last synced</div>
+            <div id="generated-at" class="sync-time">Loading...</div>
+            <p class="sync-copy">
+              Update repo `STATUS.md` files, run the sync script locally, then push this repo to refresh GitHub Pages.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="summary-grid" id="summary-grid"></section>
+
+        <section class="section-header">
+          <div>
+            <p class="section-kicker">Current Work</p>
+            <h2>Projects</h2>
+          </div>
+          <p class="section-copy">
+            Each card is generated from the corresponding repo status file so future Codex sessions can keep this page honest.
+          </p>
+        </section>
+
+        <section id="project-grid" class="project-grid"></section>
+
+        <section class="section-header">
+          <div>
+            <p class="section-kicker">Operating Rhythm</p>
+            <h2>How To Keep It Accurate</h2>
+          </div>
+        </section>
+
+        <section class="workflow-grid">
+          <article class="workflow-card">
+            <h3>Start</h3>
+            <p>Open the target repo’s `STATUS.md`, verify the working tree, and continue from `Next Up`.</p>
+          </article>
+          <article class="workflow-card">
+            <h3>Work</h3>
+            <p>Use `AGENTS.md` as the local contract so any Codex session updates the same fields the same way.</p>
+          </article>
+          <article class="workflow-card">
+            <h3>Close</h3>
+            <p>Refresh `Done Recently`, `In Progress`, `Next Up`, and `last_updated`, then run the sync script here.</p>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <template id="project-card-template">
+      <article class="project-card">
+        <div class="project-card-top">
+          <div>
+            <p class="project-path"></p>
+            <h3 class="project-name"></h3>
+          </div>
+          <span class="state-pill"></span>
+        </div>
+
+        <div class="meter">
+          <div class="meter-fill"></div>
+        </div>
+
+        <div class="project-meta">
+          <span class="progress-label"></span>
+          <span class="progress-percent"></span>
+        </div>
+
+        <p class="goal-copy"></p>
+
+        <div class="detail-grid">
+          <div>
+            <p class="mini-label">Next Up</p>
+            <ul class="list next-up-list"></ul>
+          </div>
+          <div>
+            <p class="mini-label">Watchouts</p>
+            <ul class="list blockers-list"></ul>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <span class="status-chip git-chip"></span>
+          <span class="status-chip agent-chip"></span>
+          <span class="status-chip update-chip"></span>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
