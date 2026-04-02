@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-02T19:14:29.729Z",
+  "generatedAt": "2026-04-02T19:27:46.655Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 3,
@@ -19,7 +19,7 @@
         "branch": "master",
         "gitRootType": "dedicated",
         "hasRemote": false,
-        "dirtyCount": 30
+        "dirtyCount": 31
       },
       "currentGoal": [
         "Stabilize the current backend refactor, verify the solution still builds cleanly, and bring the documentation back in line with the actual codebase state."
@@ -27,7 +27,8 @@
       "doneRecently": [
         "Built a large modular-monolith hotel platform with backend modules, Docker setup, CI workflows, and a frontend scaffold.",
         "Added detailed architecture docs such as `README.md`, `DELIVERY_CHECKLIST.md`, `IMPLEMENTATION_SUMMARY.md`, and `FILE_INDEX.md`.",
-        "Added or refined many OTA adapter, payments, and tenant-admin pieces."
+        "Added or refined many OTA adapter, payments, and tenant-admin pieces.",
+        "Added a current-state handoff section in the README so future agents see the active refactor context before assuming the repo is fully stabilized."
       ],
       "inProgress": [
         "The working tree has active changes across:",
@@ -82,7 +83,8 @@
         "Built two subprojects:",
         "`detective-biscuit-factory`: a simpler episode pipeline with story, scene planning, images, narration, subtitles, audio mix, and export stages",
         "`detective_dog_ai`: a more advanced content engine with character profiles, scene graphing, retention hooks, timing control, overlays, and export",
-        "`detective_dog_ai` shows active work on multi-character support, story generation, validation, subtitles, and ComfyUI integration."
+        "`detective_dog_ai` shows active work on multi-character support, story generation, validation, subtitles, and ComfyUI integration.",
+        "Added root tracking documentation describing the two subprojects and the likely primary implementation path."
       ],
       "inProgress": [
         "The project appears to be evolving from the simpler Biscuit pipeline toward the more advanced `detective_dog_ai` engine.",
@@ -134,7 +136,8 @@
         "AI-analysis call",
         "score calculation",
         "Wired the frontend to call the backend and display the returned analysis, risk level, and captured image.",
-        "Added Dockerfiles plus a root `docker-compose.yml`."
+        "Added Dockerfiles plus a root `docker-compose.yml`.",
+        "Added a root README documenting the product shape, local run path, and current MVP limitations."
       ],
       "inProgress": [
         "The app is beyond a blank scaffold, but several pieces still read like a prototype:",
@@ -184,7 +187,8 @@
       ],
       "doneRecently": [
         "Created the project folder.",
-        "IDE metadata exists in `.idea/`, which suggests early setup work happened locally."
+        "IDE metadata exists in `.idea/`, which suggests early setup work happened locally.",
+        "Added root documentation and agent-tracking files so future work can start from explicit project notes instead of guesswork."
       ],
       "inProgress": [
         "No application code or runtime scaffold was found during inspection."
