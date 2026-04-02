@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-02T19:27:46.655Z",
+  "generatedAt": "2026-04-02T19:48:18.729Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 3,
@@ -66,7 +66,7 @@
       "name": "pawPetrol",
       "state": "in_progress",
       "progressPercent": 45,
-      "progressLabel": "two related Python video-generation pipelines exist; one is a prototype and one is under active iteration",
+      "progressLabel": "both pipelines are now documented for handoff; detective_dog_ai is the likely primary path, but it still needs one clean reproducible validation run",
       "lastUpdated": "2026-04-03",
       "repoPathName": "pawPetrol",
       "hasAgentsDoc": true,
@@ -77,28 +77,37 @@
         "dirtyCount": 1
       },
       "currentGoal": [
-        "Consolidate the project direction around the strongest episode-generation pipeline and get one end-to-end content run working reliably."
+        "Make `detective_dog_ai` reproducible enough to become the explicit primary pipeline, while keeping `detective-biscuit-factory` as a documented reference until that decision is formalized."
       ],
       "doneRecently": [
-        "Built two subprojects:",
-        "`detective-biscuit-factory`: a simpler episode pipeline with story, scene planning, images, narration, subtitles, audio mix, and export stages",
-        "`detective_dog_ai`: a more advanced content engine with character profiles, scene graphing, retention hooks, timing control, overlays, and export",
-        "`detective_dog_ai` shows active work on multi-character support, story generation, validation, subtitles, and ComfyUI integration.",
-        "Added root tracking documentation describing the two subprojects and the likely primary implementation path."
+        "Confirmed the repo is really two separate nested Python projects with different maturity levels:",
+        "`detective-biscuit-factory`: a linear prototype pipeline with story, planning, images, narration, subtitles, audio mix, and export stages",
+        "`detective_dog_ai`: a richer pipeline with character rules, validation and retry loops, scene graphing, asset generation/caching, narration, timing, overlays, subtitles, and export",
+        "Verified `detective-biscuit-factory` has one complete checked-in artifact set, but the core generators still write mock story, image, audio, and video data.",
+        "Verified `detective_dog_ai` has many saved episode JSON files and exported reels, which is the strongest evidence that this is the project that has actually been iterated locally.",
+        "Added root and subproject `README.md` files so future agents have an execution-oriented handoff path instead of relying only on source inspection.",
+        "Added `detective_dog_ai/.env.example` to document the current environment surface.",
+        "Fixed the most obvious `detective_dog_ai` handoff traps:",
+        "character metadata now follows the selected character in the scene graph path",
+        "character profile loading is more tolerant of mixed YAML schemas",
+        "the pipeline no longer mixes background music twice at final export"
       ],
       "inProgress": [
-        "The project appears to be evolving from the simpler Biscuit pipeline toward the more advanced `detective_dog_ai` engine.",
-        "`detective_dog_ai` has uncommitted changes and new files around characters, scripts, and scheduling."
+        "The repo direction is still drifting from the simpler Biscuit prototype toward `detective_dog_ai`, but the handoff docs do not yet state that as a final canonical decision.",
+        "`detective_dog_ai` has substantial uncommitted work around characters, narration, validation, subtitles, scheduling, Docker, and scripts.",
+        "Multi-character support is in better shape, but it still needs a real end-to-end proof run across more than one character."
       ],
       "nextUp": [
-        "Decide whether `detective_dog_ai` is now the canonical pipeline. If yes, say so explicitly in both root docs and subproject docs.",
-        "Run one clean end-to-end generation pass with documented prerequisites and capture the exact setup steps.",
-        "Add a top-level README comparing the two subprojects and explaining when each should be used."
+        "Run one clean `detective_dog_ai` generation from documented prerequisites and record the exact setup, command, runtime behavior, and outputs.",
+        "Finish the remaining `detective_dog_ai` cleanup around unused/stale paths and validate all supported characters with the same runbook.",
+        "Decide whether `detective-biscuit-factory` remains maintained or should be explicitly labeled as superseded/reference-only."
       ],
       "blockers": [
         "The repo contains overlapping pipelines, which increases drift and makes it unclear which code path is authoritative.",
-        "Local model, asset, and API-key dependencies are implied by the code but are not documented at the root.",
-        "Because the root folder is not its own git repo, status can be missed unless agents also inspect the nested repos."
+        "`detective_dog_ai` contains mock fallbacks for several media-generation stages, so a \"successful\" run may still hide broken external integrations.",
+        "`detective-biscuit-factory` outputs are placeholder artifacts rather than proof of real media generation.",
+        "Local model, asset, FFmpeg, and API-key dependencies are implied by the code but still are not documented at the root.",
+        "Because the root folder is not its own git repo, status can be missed unless agents also inspect the nested repos directly."
       ],
       "repoNotes": [
         "Nested git repos detected:",
@@ -107,8 +116,8 @@
         "The actively changing subproject is `detective_dog_ai`."
       ],
       "narrative": {
-        "currentGoal": "Consolidate the project direction around the strongest episode-generation pipeline and get one end-to-end content run working reliably.",
-        "inProgress": "The project appears to be evolving from the simpler Biscuit pipeline toward the more advanced `detective_dog_ai` engine."
+        "currentGoal": "Make `detective_dog_ai` reproducible enough to become the explicit primary pipeline, while keeping `detective-biscuit-factory` as a documented reference until that decision is formalized.",
+        "inProgress": "The repo direction is still drifting from the simpler Biscuit prototype toward `detective_dog_ai`, but the handoff docs do not yet state that as a final canonical decision."
       }
     },
     {
