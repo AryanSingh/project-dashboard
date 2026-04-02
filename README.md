@@ -11,6 +11,10 @@ A static dashboard that compiles repo-level `STATUS.md` files into a mobile-frie
 - whether `AGENTS.md` exists
 - whether the repo currently has a dirty working tree
 
+Also see:
+
+- [EXECUTION_PLAN.md](/Users/aryansingh/repos/project-dashboard/EXECUTION_PLAN.md)
+
 ## Source Of Truth
 
 Each tracked repo should maintain:
