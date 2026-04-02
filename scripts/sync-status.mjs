@@ -1,8 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 
-const rootDir = path.resolve("/Users/aryansingh/repos/project-dashboard");
+const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+const rootDir = path.resolve(scriptDir, "..");
 const localConfigPath = path.join(rootDir, "sources.local.json");
 const exampleConfigPath = path.join(rootDir, "sources.example.json");
 const configPath = fs.existsSync(localConfigPath) ? localConfigPath : exampleConfigPath;

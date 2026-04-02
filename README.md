@@ -13,7 +13,7 @@ A static dashboard that compiles repo-level `STATUS.md` files into a mobile-frie
 
 Also see:
 
-- [EXECUTION_PLAN.md](/Users/aryansingh/repos/project-dashboard/EXECUTION_PLAN.md)
+- [EXECUTION_PLAN.md](./EXECUTION_PLAN.md)
 
 ## Source Of Truth
 
@@ -49,6 +49,33 @@ Then open `http://localhost:4173`.
 3. Return here and run `npm run sync`.
 4. Commit the updated dashboard snapshot.
 5. Push to GitHub.
+
+## Automated Refresh And Deploy
+
+Use this command for unattended runs:
+
+```bash
+./scripts/run-dashboard-automation.sh
+```
+
+That wrapper loads Homebrew's environment when needed, then runs the Node-based deploy flow.
+
+The underlying Node command is:
+
+```bash
+npm run sync:deploy
+```
+
+What it does:
+
+- verifies this repo is on `main`
+- refuses to run if the dashboard repo already has local changes
+- regenerates `data/projects.json`
+- commits only the generated dashboard snapshot
+- pushes `main` to `origin`
+- relies on `.github/workflows/deploy.yml` to publish GitHub Pages
+
+This is the intended entrypoint for morning and night automations.
 
 ## GitHub Pages
 
