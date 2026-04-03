@@ -1,51 +1,95 @@
 {
-  "generatedAt": "2026-04-02T19:48:18.729Z",
+  "generatedAt": "2026-04-03T03:30:27.422Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 3,
-    "averageProgress": 41,
+    "averageProgress": 45,
     "needsAttention": 4
   },
   "projects": [
     {
       "name": "channel-manager",
       "state": "in_progress",
-      "progressPercent": 80,
-      "progressLabel": "broad platform scaffolding and documentation exist, with an active refactor underway in backend integrations and tenant admin",
+      "progressPercent": 93,
+      "progressLabel": "backend restores/builds under .NET 8 and compatibility routes are live-verified; remaining work is authenticated payload validation and hardening",
       "lastUpdated": "2026-04-03",
       "repoPathName": "channel-manager",
       "hasAgentsDoc": true,
       "git": {
-        "branch": "master",
+        "branch": "codex/runtime-stabilization-pass",
         "gitRootType": "dedicated",
         "hasRemote": false,
-        "dirtyCount": 31
+        "dirtyCount": 2
       },
       "currentGoal": [
-        "Stabilize the current backend refactor, verify the solution still builds cleanly, and bring the documentation back in line with the actual codebase state."
+        "Stabilize the active backend refactor, preserve the now-working local build/start path, and continue closing the highest-value runtime and frontend/backend contract gaps."
       ],
       "doneRecently": [
-        "Built a large modular-monolith hotel platform with backend modules, Docker setup, CI workflows, and a frontend scaffold.",
-        "Added detailed architecture docs such as `README.md`, `DELIVERY_CHECKLIST.md`, `IMPLEMENTATION_SUMMARY.md`, and `FILE_INDEX.md`.",
-        "Added or refined many OTA adapter, payments, and tenant-admin pieces.",
-        "Added a current-state handoff section in the README so future agents see the active refactor context before assuming the repo is fully stabilized."
+        "Confirmed the repo contains substantial breadth: 12 API controllers, 20+ application/service files, tenant-aware DbContexts, OTA adapters, payments, analytics, direct booking, and a React/Vite frontend with routed pages.",
+        "Confirmed the frontend builds successfully with `npm run build`.",
+        "Confirmed the current refactor heavily simplifies API wiring and OTA adapter implementations rather than adding net-new surface area.",
+        "Re-validated that `README.md` contains a warning not to trust “fully complete” claims at face value.",
+        "Added a first backend auth slice:",
+        "`POST /api/v1/auth/login`",
+        "`POST /api/v1/auth/refresh`",
+        "shared auth DTOs",
+        "Made JWT handling internally consistent by issuing JWT refresh tokens with a `token_type` claim instead of generating opaque refresh strings that the existing validation path could not understand.",
+        "Updated the web client to persist auth state and automatically send `X-Tenant-Slug` when the authenticated user includes one.",
+        "Updated the tenant middleware/auth pipeline ordering so authenticated requests can recover tenant slug from JWT claims when the header/subdomain is missing.",
+        "Added a session-level implementation log in `docs/WORK_LOG.md` for future agents.",
+        "Retargeted the backend solution from `net10.0` to `net8.0` so it builds with the available Homebrew SDK.",
+        "Added repo-local NuGet config (`NuGet.Config` and `src/api/NuGet.Config`) so restore succeeds even when the machine-level `nuget.org` source is disabled.",
+        "Verified the backend locally:",
+        "`dotnet restore src/api/ChannelManager.sln` succeeds",
+        "`dotnet build src/api/ChannelManager.sln --no-restore` succeeds",
+        "the API host starts and returns `200` on `/health/live` and `/health/ready`",
+        "Added a `NoOpEmailProvider` so messaging and tenant-admin no longer depend on a missing DI registration just to run.",
+        "Updated dashboard/reservations frontend pages to target the property-scoped backend endpoints that currently exist.",
+        "Added an authenticated `GET /api/v1/properties` endpoint (Inventory module) to support frontend property bootstrap.",
+        "Wired frontend property bootstrap in `AppLayout`:",
+        "fetches properties at authenticated app startup",
+        "hydrates property store and prefers `user.propertyId` when available",
+        "keeps URL `:propertyId` and selected property in sync",
+        "Updated the property store to preserve selected property across property-list refreshes.",
+        "Fixed channel sync update semantics in `ChannelSyncService`:",
+        "removed `AsNoTracking()` from push connection queries so `LastPushAt` writes persist",
+        "removed unsafe parallel fanout over a shared EF `DbContext` in push flows",
+        "Fixed maintenance frontend contract drift by switching to `GET /api/v1/properties/{propertyId}/maintenance` and adapting backend maintenance DTO/enums to the existing work-order UI shape.",
+        "Added missing backend endpoints used by existing frontend pages:",
+        "`GET /api/v1/channels` for the channels page",
+        "`GET /api/v1/guests` and `GET /api/v1/guests/{id}` for guest list/detail pages",
+        "Added `GET /api/v1/reservations/{reservationId}/folio` compatibility endpoint so the existing folio page route can resolve against current backend data.",
+        "Moved `GET /api/v1/channels` into API host assembly after runtime discovery checks, and confirmed the endpoint now resolves through auth middleware (`401` unauthenticated instead of `404`).",
+        "Performed live unauthenticated route smoke under `dotnet run`:",
+        "`/health/live` -> `200`",
+        "`/api/v1/properties`, `/api/v1/channels`, `/api/v1/guests`, `/api/v1/reservations/{id}/folio` -> `401`"
       ],
       "inProgress": [
-        "The working tree has active changes across:",
-        "OTA adapters",
-        "API host wiring",
-        "tenant-admin services and persistence",
-        "multiple project files",
-        "Current diff stats show a substantial simplification/refactor rather than a tiny patch."
+        "The worktree is still actively dirty across:",
+        "API host wiring (`Program.cs`)",
+        "OTA adapters (`AgodaAdapter`, `AirbnbAdapter`, etc.)",
+        "payments (`StripePaymentGateway`)",
+        "tenant admin services/persistence",
+        "many project files retargeted to `net8.0`",
+        "Current diff stats are still dominated by deletions, indicating an unfinished simplification/refactor rather than a settled implementation pass.",
+        "`STATUS.md` and `AGENTS.md` are currently untracked, so repository handoff guidance itself has not been committed yet.",
+        "The repo now has a working local backend build/start path and property bootstrap wiring, but runtime correctness beyond targeted smoke/build checks still needs module-by-module validation."
       ],
       "nextUp": [
-        "Build and test the backend after the current refactor, then capture the exact failures if any remain.",
-        "Review the \"100% complete\" documentation claims and downgrade or nuance them where reality is still evolving.",
-        "Add a short agent-facing handoff section to the main docs if this repo will keep being worked on by multiple Codex sessions."
+        "Reconcile the next frontend/backend contract gaps after dashboard/reservations, especially reservation detail and other pages that still assume richer DTOs than the API returns.",
+        "Run authenticated API smoke checks for newly added compatibility endpoints and tighten any response-shape edge cases found at runtime.",
+        "Decide whether to harden the placeholder `NoOpEmailProvider` path or replace it with a real configured provider implementation.",
+        "Decide whether tenant-admin should be fully supported now or temporarily pared back, then align its service layer to the current core entities instead of returning placeholder values."
       ],
       "blockers": [
-        "The docs currently present the platform as fully complete, but the working tree shows active architectural churn.",
-        "Future agents could trust the completion docs too literally and miss the current refactor context.",
+        "There are no automated tests in the repo, so “done” currently means “implemented code exists,” not “behavior is validated.”",
+        "The backend currently depends on the repo-local NuGet config to recover from a machine-level disabled `nuget.org` source; future environments may still need the same fix.",
+        "The new properties bootstrap endpoint currently maps property contact fields (`phone`, `email`, `website`) to empty placeholders because those fields are not present on the current property entity.",
+        "`NoOpEmailProvider` keeps runtime DI healthy but does not actually deliver mail, so invitations/messages are still operationally stubbed.",
+        "Tenant-admin currently contains placeholder/degraded behavior in several paths (for example zero user counts and weakened audit log filtering), which suggests refactor drift rather than a finished admin surface.",
+        "The docs still overstate production readiness relative to the current codebase state.",
+        "The auth slice currently uses stateless JWT refresh tokens; revocation/rotation persistence is not yet implemented.",
+        "Tenant-aware login/runtime behavior is improved, but tenant context still depends on a resolvable tenant slug. Local multi-tenant developer ergonomics may need a more explicit tenant-selection path.",
         "`.env` exists locally, so environment-sensitive work should avoid exposing secrets in commits or notes."
       ],
       "repoNotes": [
@@ -55,18 +99,24 @@
         "`DELIVERY_CHECKLIST.md`",
         "`IMPLEMENTATION_SUMMARY.md`",
         "`FILE_INDEX.md`",
-        "Current dirty files are concentrated in API wiring, adapters, payment integration, and tenant-admin modules."
+        "Backend appears architecturally broad but not yet proven end-to-end:",
+        "multi-tenant context and schema-aware DbContexts exist",
+        "core PMS modules (inventory, reservations, front office, folio, maintenance, guest experience, messaging, analytics, direct booking) all have service/controller code",
+        "several frontend pages are still static or only lightly wired, so web breadth exceeds current runtime integration depth",
+        "Highest-confidence integration gaps identified in this session:",
+        "several UI screens still assume richer domain data (for example full property contact data) than the current entities expose",
+        "tenant-admin still contains compatibility placeholders rather than fully repaired logic against the simplified core model"
       ],
       "narrative": {
-        "currentGoal": "Stabilize the current backend refactor, verify the solution still builds cleanly, and bring the documentation back in line with the actual codebase state.",
-        "inProgress": "The working tree has active changes across:"
+        "currentGoal": "Stabilize the active backend refactor, preserve the now-working local build/start path, and continue closing the highest-value runtime and frontend/backend contract gaps.",
+        "inProgress": "The worktree is still actively dirty across:"
       }
     },
     {
       "name": "pawPetrol",
       "state": "in_progress",
       "progressPercent": 45,
-      "progressLabel": "both pipelines are now documented for handoff; detective_dog_ai is the likely primary path, but it still needs one clean reproducible validation run",
+      "progressLabel": "both pipelines are documented for handoff; detective_dog_ai now has real-key + subtitle-burn proof runs plus configurable narration quality",
       "lastUpdated": "2026-04-03",
       "repoPathName": "pawPetrol",
       "hasAgentsDoc": true,
@@ -90,17 +140,34 @@
         "Fixed the most obvious `detective_dog_ai` handoff traps:",
         "character metadata now follows the selected character in the scene graph path",
         "character profile loading is more tolerant of mixed YAML schemas",
-        "the pipeline no longer mixes background music twice at final export"
+        "the pipeline no longer mixes background music twice at final export",
+        "Ran and documented a full `detective_dog_ai` validation pass for `detective_cat`, producing:",
+        "`detective_dog_ai/data/episodes/episode_024.json`",
+        "`detective_dog_ai/data/reels/episode_014.mp4`",
+        "Updated subtitle handling in `detective_dog_ai` so missing FFmpeg subtitle-filter support is detected once and logged clearly.",
+        "Ran a real-key `detective_dog_ai` pass (OpenAI story + TTS active), producing:",
+        "`detective_dog_ai/data/episodes/episode_030.json`",
+        "`detective_dog_ai/data/reels/episode_015.mp4`",
+        "Added retention fallbacks for validator stability when the model misses strict question/catchphrase requirements.",
+        "Completed a subtitle-burn proof run using subtitle-capable FFmpeg, producing:",
+        "`detective_dog_ai/data/episodes/episode_032.json`",
+        "`detective_dog_ai/data/reels/episode_016.mp4`",
+        "burned-subtitle scene clips in `detective_dog_ai/data/clips/subbed_scene_*.mp4`",
+        "Added configurable narration quality modes to `detective_dog_ai` and validated `natural` mode with:",
+        "`detective_dog_ai/data/episodes/episode_033.json`",
+        "`detective_dog_ai/data/reels/episode_017.mp4`",
+        "Added completion-time usage reporting in the pipeline; direct credit-balance lookup remains limited by OpenAI secret-key billing API restrictions."
       ],
       "inProgress": [
         "The repo direction is still drifting from the simpler Biscuit prototype toward `detective_dog_ai`, but the handoff docs do not yet state that as a final canonical decision.",
         "`detective_dog_ai` has substantial uncommitted work around characters, narration, validation, subtitles, scheduling, Docker, and scripts.",
-        "Multi-character support is in better shape, but it still needs a real end-to-end proof run across more than one character."
+        "Multi-character support is in better shape and has a fresh proof run, but it still needs full validation across all intended characters and real-service mode."
       ],
       "nextUp": [
-        "Run one clean `detective_dog_ai` generation from documented prerequisites and record the exact setup, command, runtime behavior, and outputs.",
         "Finish the remaining `detective_dog_ai` cleanup around unused/stale paths and validate all supported characters with the same runbook.",
-        "Decide whether `detective-biscuit-factory` remains maintained or should be explicitly labeled as superseded/reference-only."
+        "Decide whether `detective-biscuit-factory` remains maintained or should be explicitly labeled as superseded/reference-only.",
+        "Run one optional proof pass with a real background-music asset in `detective_dog_ai/data/assets/music/`.",
+        "Validate batch runs in `natural` narration mode across all supported characters."
       ],
       "blockers": [
         "The repo contains overlapping pipelines, which increases drift and makes it unclear which code path is authoritative.",
