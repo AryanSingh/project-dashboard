@@ -1,25 +1,25 @@
 {
-  "generatedAt": "2026-04-03T03:30:27.422Z",
+  "generatedAt": "2026-04-04T05:40:00.755Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 3,
-    "averageProgress": 45,
+    "averageProgress": 51,
     "needsAttention": 4
   },
   "projects": [
     {
       "name": "channel-manager",
       "state": "in_progress",
-      "progressPercent": 93,
-      "progressLabel": "backend restores/builds under .NET 8 and compatibility routes are live-verified; remaining work is authenticated payload validation and hardening",
-      "lastUpdated": "2026-04-03",
+      "progressPercent": 97,
+      "progressLabel": "backend/frontend runtime parity advanced with Sprint A operations/reporting flows; remaining work is test hardening and deeper module parity",
+      "lastUpdated": "2026-04-04",
       "repoPathName": "channel-manager",
       "hasAgentsDoc": true,
       "git": {
         "branch": "codex/runtime-stabilization-pass",
         "gitRootType": "dedicated",
-        "hasRemote": false,
-        "dirtyCount": 2
+        "hasRemote": true,
+        "dirtyCount": 19
       },
       "currentGoal": [
         "Stabilize the active backend refactor, preserve the now-working local build/start path, and continue closing the highest-value runtime and frontend/backend contract gaps."
@@ -62,7 +62,59 @@
         "Moved `GET /api/v1/channels` into API host assembly after runtime discovery checks, and confirmed the endpoint now resolves through auth middleware (`401` unauthenticated instead of `404`).",
         "Performed live unauthenticated route smoke under `dotnet run`:",
         "`/health/live` -> `200`",
-        "`/api/v1/properties`, `/api/v1/channels`, `/api/v1/guests`, `/api/v1/reservations/{id}/folio` -> `401`"
+        "`/api/v1/properties`, `/api/v1/channels`, `/api/v1/guests`, `/api/v1/reservations/{id}/folio` -> `401`",
+        "Started backend hardening implementation:",
+        "introduced SMTP-capable email provider and configurable no-op fallback behavior in core DI",
+        "tightened tenant-admin service validation paths (plan parsing, email normalization/validation, inviter validation, duplicate invitation prevention, invite-accept password/name checks)",
+        "switched tenant-admin invitation password hashing to shared core `PasswordHasher`",
+        "constrained tenant-admin audit-log retrieval to tenant-id markers instead of returning broad unscoped logs",
+        "Re-verified backend build/start after hardening changes.",
+        "Added engineering handoff artifact: `docs/SYSTEM_DESIGN_OVERVIEW.html` (architecture, tech stack, glossary, and key flow concepts).",
+        "Added optional startup bootstrap path (config-gated) to initialize missing public/tenant tables and seed local login context for validation runs.",
+        "Completed authenticated smoke validation with provided credentials and tenant slug:",
+        "`/api/v1/auth/login` -> `200`",
+        "`/api/v1/properties` -> `200` (empty list)",
+        "`/api/v1/channels` -> `200` (empty items)",
+        "`/api/v1/guests` -> `200` (empty items)",
+        "`/api/v1/reservations/{id}/folio` -> `404` for unknown reservation (expected)",
+        "`/api/v1/admin/tenants` -> `200`",
+        "Fixed reservation API runtime failures (`500`) caused by Npgsql v8 JSON handling by enabling dynamic JSON through a shared `NpgsqlDataSource` wired into all registered DbContexts.",
+        "Expanded bootstrap deterministic sample IDs/data beyond guest/reservation/folio:",
+        "seeded chain/property/room type/room/channel connection/sync log IDs",
+        "preserved and reused existing guest/reservation/folio/folio-charge deterministic IDs",
+        "Re-validated authenticated seeded-data smoke responses:",
+        "`/api/v1/properties` -> `200` with seeded property",
+        "`/api/v1/channels` -> `200` with seeded channel connection",
+        "`/api/v1/guests` -> `200` with seeded guest",
+        "`/api/v1/reservations/{id}` -> `200` (fixed from prior `500`)",
+        "`/api/v1/reservations?propertyId={id}` -> `200` (fixed from prior `500`)",
+        "`/api/v1/reservations/{id}/folio` -> `200`",
+        "Added deterministic handoff docs at `docs/TEST_IDS.md` for cross-agent validation consistency.",
+        "Hardened bootstrap table initialization behavior:",
+        "added mapped-table existence pre-check to skip unnecessary `CreateTablesAsync` calls for fully initialized contexts",
+        "kept tolerant catch/continue for existing table/schema states to avoid bootstrap crash in overlapping-module table-name scenarios (for example `Requests`)",
+        "Added automated backend smoke test suite:",
+        "new project `src/api/ChannelManager.SmokeTests`",
+        "validates auth + deterministic seeded endpoints against a running API via env-configured base URL and credentials",
+        "added to solution and verified passing locally",
+        "Completed a read-only competitor observation pass against Asiatech admin:",
+        "captured action trace + screenshots under `docs/competitive/asiatech/20260403-184042/`",
+        "generated `docs/competitive/ASIATECH_COMPARISON_PLAN.md` with parity/missing-feature roadmap",
+        "Implemented Sprint A feature slice from competitor-gap plan:",
+        "Today Check-In/Out board backend + frontend flow",
+        "Booking Report backend + frontend flow",
+        "Credit Report backend + frontend flow",
+        "Added new backend endpoints:",
+        "`GET /api/v1/front-office/today-board/{propertyId}?date=YYYY-MM-DD`",
+        "`GET /api/v1/reservations/reports/booking?propertyId=...&from=...&to=...&status=...`",
+        "`GET /api/v1/reservations/reports/credit?propertyId=...&from=...&to=...`",
+        "Upgraded web surfaces:",
+        "`FrontOffice` now uses live operations-board data with arrivals/departures/in-house tabs and check-in/check-out actions",
+        "`Reservations` now includes tabbed Reservation List + Booking Report + Credit Report with filter controls and summary cards",
+        "Re-validated current runtime:",
+        "backend build passes",
+        "frontend build passes",
+        "authenticated endpoint smoke for all three new Sprint A endpoints returns `200`"
       ],
       "inProgress": [
         "The worktree is still actively dirty across:",
@@ -78,6 +130,10 @@
       "nextUp": [
         "Reconcile the next frontend/backend contract gaps after dashboard/reservations, especially reservation detail and other pages that still assume richer DTOs than the API returns.",
         "Run authenticated API smoke checks for newly added compatibility endpoints and tighten any response-shape edge cases found at runtime.",
+        "Run authenticated tenant-admin endpoint checks against the hardened validation paths and confirm client-facing error semantics.",
+        "Convert bootstrap raw SQL inserts to parameterized SQL / EF-based inserts and remove current EF1002 warnings.",
+        "Add integration tests for new Sprint A endpoints and check-in/check-out mutation flows.",
+        "Decide whether to expose Booking/Credit reports as dedicated routes/nav items (not only tabs under Reservations) for clearer operator UX parity.",
         "Decide whether to harden the placeholder `NoOpEmailProvider` path or replace it with a real configured provider implementation.",
         "Decide whether tenant-admin should be fully supported now or temporarily pared back, then align its service layer to the current core entities instead of returning placeholder values."
       ],
@@ -105,7 +161,7 @@
         "several frontend pages are still static or only lightly wired, so web breadth exceeds current runtime integration depth",
         "Highest-confidence integration gaps identified in this session:",
         "several UI screens still assume richer domain data (for example full property contact data) than the current entities expose",
-        "tenant-admin still contains compatibility placeholders rather than fully repaired logic against the simplified core model"
+        "tenant-admin still lacks true tenant-to-user relational modeling in core entities, so some admin views remain heuristic/limited even after validation hardening"
       ],
       "narrative": {
         "currentGoal": "Stabilize the active backend refactor, preserve the now-working local build/start path, and continue closing the highest-value runtime and frontend/backend contract gaps.",
@@ -115,8 +171,8 @@
     {
       "name": "pawPetrol",
       "state": "in_progress",
-      "progressPercent": 45,
-      "progressLabel": "both pipelines are documented for handoff; detective_dog_ai now has real-key + subtitle-burn proof runs plus configurable narration quality",
+      "progressPercent": 68,
+      "progressLabel": "both pipelines are documented; detective_dog_ai now has hardened proof runs across all supported characters plus manifests and quality gating",
       "lastUpdated": "2026-04-03",
       "repoPathName": "pawPetrol",
       "hasAgentsDoc": true,
@@ -156,22 +212,38 @@
         "Added configurable narration quality modes to `detective_dog_ai` and validated `natural` mode with:",
         "`detective_dog_ai/data/episodes/episode_033.json`",
         "`detective_dog_ai/data/reels/episode_017.mp4`",
-        "Added completion-time usage reporting in the pipeline; direct credit-balance lookup remains limited by OpenAI secret-key billing API restrictions."
+        "Added completion-time usage reporting in the pipeline; direct credit-balance lookup remains limited by OpenAI secret-key billing API restrictions.",
+        "Added quality-gated story retries to `detective_dog_ai`, so weak-but-valid stories can be retried before the expensive media stages.",
+        "Added run manifests and explicit asset-fallback telemetry to `detective_dog_ai`, making it clearer when a successful run still depended on mock visual generation.",
+        "Completed a real-key + subtitle-burn + `natural` narration proof run for `detective_bunny`, producing:",
+        "`detective_dog_ai/data/episodes/episode_036.json`",
+        "`detective_dog_ai/data/reels/episode_019.mp4`",
+        "`detective_dog_ai/data/manifests/20260403T081630Z_episode_036_success.json`",
+        "Fixed `detective_dog_ai` batch-export cleanup so source clips are explicitly released between episodes.",
+        "Completed hardened proof runs for the remaining supported `detective_dog_ai` characters:",
+        "`detective_biscuit`",
+        "`detective_dog_ai/data/episodes/episode_039.json`",
+        "`detective_dog_ai/data/reels/episode_020.mp4`",
+        "`detective_dog_ai/data/manifests/20260403T082036Z_episode_039_success.json`",
+        "`detective_cat`",
+        "`detective_dog_ai/data/episodes/episode_040.json`",
+        "`detective_dog_ai/data/reels/episode_021.mp4`",
+        "`detective_dog_ai/data/manifests/20260403T082454Z_episode_040_success.json`"
       ],
       "inProgress": [
         "The repo direction is still drifting from the simpler Biscuit prototype toward `detective_dog_ai`, but the handoff docs do not yet state that as a final canonical decision.",
         "`detective_dog_ai` has substantial uncommitted work around characters, narration, validation, subtitles, scheduling, Docker, and scripts.",
-        "Multi-character support is in better shape and has a fresh proof run, but it still needs full validation across all intended characters and real-service mode."
+        "`detective_dog_ai` now has hardened proof coverage for all supported characters, but its visual generation remains partly mock-backed."
       ],
       "nextUp": [
-        "Finish the remaining `detective_dog_ai` cleanup around unused/stale paths and validate all supported characters with the same runbook.",
+        "Add a real music asset and prove end-to-end background music mixing in `detective_dog_ai`.",
+        "Finish the remaining `detective_dog_ai` cleanup around unused/stale paths and validate all supported characters with the same hardened runbook.",
         "Decide whether `detective-biscuit-factory` remains maintained or should be explicitly labeled as superseded/reference-only.",
-        "Run one optional proof pass with a real background-music asset in `detective_dog_ai/data/assets/music/`.",
-        "Validate batch runs in `natural` narration mode across all supported characters."
+        "Replace or explicitly de-scope the mock visual-generation path in `detective_dog_ai` if production imagery is required."
       ],
       "blockers": [
         "The repo contains overlapping pipelines, which increases drift and makes it unclear which code path is authoritative.",
-        "`detective_dog_ai` contains mock fallbacks for several media-generation stages, so a \"successful\" run may still hide broken external integrations.",
+        "`detective_dog_ai` still contains mock fallbacks for visual generation stages; manifests now surface that more clearly, but the dependency is still a product risk.",
         "`detective-biscuit-factory` outputs are placeholder artifacts rather than proof of real media generation.",
         "Local model, asset, FFmpeg, and API-key dependencies are implied by the code but still are not documented at the root.",
         "Because the root folder is not its own git repo, status can be missed unless agents also inspect the nested repos directly."
