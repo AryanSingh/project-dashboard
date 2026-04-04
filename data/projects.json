@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-04-04T05:40:00.755Z",
+  "generatedAt": "2026-04-04T15:30:39.157Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 3,
-    "averageProgress": 51,
+    "averageProgress": 52,
     "needsAttention": 4
   },
   "projects": [
     {
       "name": "channel-manager",
       "state": "in_progress",
-      "progressPercent": 97,
-      "progressLabel": "backend/frontend runtime parity advanced with Sprint A operations/reporting flows; remaining work is test hardening and deeper module parity",
+      "progressPercent": 100,
+      "progressLabel": "Sprint A/B + bootstrap hardening complete with expanded API end-to-end flow coverage",
       "lastUpdated": "2026-04-04",
       "repoPathName": "channel-manager",
       "hasAgentsDoc": true,
@@ -19,7 +19,7 @@
         "branch": "codex/runtime-stabilization-pass",
         "gitRootType": "dedicated",
         "hasRemote": true,
-        "dirtyCount": 19
+        "dirtyCount": 2
       },
       "currentGoal": [
         "Stabilize the active backend refactor, preserve the now-working local build/start path, and continue closing the highest-value runtime and frontend/backend contract gaps."
@@ -114,7 +114,42 @@
         "Re-validated current runtime:",
         "backend build passes",
         "frontend build passes",
-        "authenticated endpoint smoke for all three new Sprint A endpoints returns `200`"
+        "authenticated endpoint smoke for all three new Sprint A endpoints returns `200`",
+        "Completed Sprint A follow-through:",
+        "added direct sidebar links for report deep-links:",
+        "`/reservations?tab=bookingReport`",
+        "`/reservations?tab=creditReport`",
+        "expanded smoke tests to cover Sprint A report endpoints and check-in/check-out mutation flow",
+        "verified smoke suite result: `Passed: 3, Failed: 0`",
+        "Started Sprint B implementation:",
+        "added list rate plans API (`GET /api/v1/properties/{propertyId}/rates/rate-plans`)",
+        "upgraded rate manager UI from placeholder to operational tabs:",
+        "linked channel-rate comparison",
+        "one-click bulk day update",
+        "quick seasonal multi-day uplift",
+        "added deterministic seeded rate plan/rate for local parity testing",
+        "Completed Sprint B lifecycle scope:",
+        "added persisted linked-rate rules lifecycle (`GET/POST/DELETE /rates/linked-rules`)",
+        "added persisted season lifecycle (`GET/POST/DELETE /rates/seasons`)",
+        "added persisted OTA discount lifecycle (`GET/POST/DELETE /rates/ota-discounts`)",
+        "upgraded rates calculation path to apply linked-rule offsets, seasonal adjustments, and OTA discounts in one flow",
+        "upgraded frontend `RateManager` with lifecycle tabs for season rules, OTA discounts, and linked rules",
+        "added second seeded deterministic rate plan/rate to support linked-rule testing",
+        "added bootstrap fallback to ensure new lifecycle tables exist idempotently even on partially initialized tenant schemas",
+        "fixed jsonb channel-filter runtime failure in rate calculation by moving season-channel matching to in-memory filtering",
+        "Expanded smoke coverage and re-validated end-to-end:",
+        "added `SprintB_RatesLifecycleEndpoints_WorkAndAffectRateCalculation`",
+        "smoke result: `Passed: 4, Failed: 0`",
+        "Completed bootstrap hardening cleanup:",
+        "removed EF raw SQL bootstrap inserts in favor of EF-native seeding for reservations/folio entities",
+        "replaced lifecycle table ensure raw SQL calls with safe ADO execution using validated schema identifiers",
+        "removed EF1002 warning sources from API bootstrap code path",
+        "Expanded automated verification depth:",
+        "added cross-module API E2E flow suite at `src/api/ChannelManager.SmokeTests/EndToEndFlowTests.cs`",
+        "full smoke+E2E suite now reports `Passed: 5, Failed: 0`",
+        "Fixed runtime issues surfaced by new E2E:",
+        "maintenance comment write path no longer throws concurrency exceptions",
+        "maintenance comment serialization no longer cycles on `Request` navigation property"
       ],
       "inProgress": [
         "The worktree is still actively dirty across:",
@@ -124,21 +159,18 @@
         "tenant admin services/persistence",
         "many project files retargeted to `net8.0`",
         "Current diff stats are still dominated by deletions, indicating an unfinished simplification/refactor rather than a settled implementation pass.",
-        "`STATUS.md` and `AGENTS.md` are currently untracked, so repository handoff guidance itself has not been committed yet.",
         "The repo now has a working local backend build/start path and property bootstrap wiring, but runtime correctness beyond targeted smoke/build checks still needs module-by-module validation."
       ],
       "nextUp": [
-        "Reconcile the next frontend/backend contract gaps after dashboard/reservations, especially reservation detail and other pages that still assume richer DTOs than the API returns.",
-        "Run authenticated API smoke checks for newly added compatibility endpoints and tighten any response-shape edge cases found at runtime.",
-        "Run authenticated tenant-admin endpoint checks against the hardened validation paths and confirm client-facing error semantics.",
-        "Convert bootstrap raw SQL inserts to parameterized SQL / EF-based inserts and remove current EF1002 warnings.",
-        "Add integration tests for new Sprint A endpoints and check-in/check-out mutation flows.",
-        "Decide whether to expose Booking/Credit reports as dedicated routes/nav items (not only tabs under Reservations) for clearer operator UX parity.",
+        "Continue tenant-admin endpoint validation depth and tighten placeholder/degraded paths that still return heuristic values.",
+        "Reconcile remaining frontend/backend contract mismatches on pages that still assume richer DTO shapes than current API responses.",
+        "Optionally add browser-level UI E2E (Playwright/Cypress) to complement API-level E2E flows.",
         "Decide whether to harden the placeholder `NoOpEmailProvider` path or replace it with a real configured provider implementation.",
         "Decide whether tenant-admin should be fully supported now or temporarily pared back, then align its service layer to the current core entities instead of returning placeholder values."
       ],
       "blockers": [
         "There are no automated tests in the repo, so “done” currently means “implemented code exists,” not “behavior is validated.”",
+        "Smoke tests now exist and pass for deterministic core + Sprint A + Sprint B rates lifecycle (`4` tests), but broad module integration coverage is still incomplete.",
         "The backend currently depends on the repo-local NuGet config to recover from a machine-level disabled `nuget.org` source; future environments may still need the same fix.",
         "The new properties bootstrap endpoint currently maps property contact fields (`phone`, `email`, `website`) to empty placeholders because those fields are not present on the current property entity.",
         "`NoOpEmailProvider` keeps runtime DI healthy but does not actually deliver mail, so invitations/messages are still operationally stubbed.",
