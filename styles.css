@@ -43,7 +43,7 @@ body::before {
 
 .page-shell {
   position: relative;
-  max-width: 1220px;
+  max-width: 1540px;
   margin: 0 auto;
   padding: 32px 18px 56px;
 }
@@ -175,7 +175,7 @@ h1 {
 }
 
 .project-grid {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
 }
 
 .workflow-grid {
@@ -208,6 +208,7 @@ h1 {
 .project-name {
   margin-top: 8px;
   font-size: 1.55rem;
+  overflow-wrap: anywhere;
 }
 
 .state-pill,
@@ -246,9 +247,18 @@ h1 {
   font-size: 0.92rem;
 }
 
+.progress-label,
+.progress-percent,
+.goal-copy,
+.list li,
+.status-chip,
+.project-path {
+  overflow-wrap: anywhere;
+}
+
 .detail-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 16px;
   margin-top: 18px;
 }
