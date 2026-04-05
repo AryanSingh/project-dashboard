@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-04-05T03:30:22.163Z",
+  "generatedAt": "2026-04-05T05:10:19.980Z",
   "summary": {
     "totalProjects": 4,
-    "activeProjects": 3,
-    "averageProgress": 52,
+    "activeProjects": 4,
+    "averageProgress": 65,
     "needsAttention": 4
   },
   "projects": [
@@ -12,14 +12,14 @@
       "state": "in_progress",
       "progressPercent": 100,
       "progressLabel": "Sprint A/B + bootstrap hardening complete with expanded API end-to-end flow coverage",
-      "lastUpdated": "2026-04-04",
+      "lastUpdated": "2026-04-05",
       "repoPathName": "channel-manager",
       "hasAgentsDoc": true,
       "git": {
         "branch": "codex/runtime-stabilization-pass",
         "gitRootType": "dedicated",
         "hasRemote": true,
-        "dirtyCount": 2
+        "dirtyCount": 10
       },
       "currentGoal": [
         "Stabilize the active backend refactor, preserve the now-working local build/start path, and continue closing the highest-value runtime and frontend/backend contract gaps."
@@ -149,7 +149,29 @@
         "full smoke+E2E suite now reports `Passed: 5, Failed: 0`",
         "Fixed runtime issues surfaced by new E2E:",
         "maintenance comment write path no longer throws concurrency exceptions",
-        "maintenance comment serialization no longer cycles on `Request` navigation property"
+        "maintenance comment serialization no longer cycles on `Request` navigation property",
+        "Added browser-level Playwright E2E coverage in `src/web`:",
+        "added Playwright config and npm scripts (`test:e2e`, `test:e2e:headed`)",
+        "added browser flow spec covering login, dashboard/reservations tabs, front-office board, and rates lifecycle create/delete paths",
+        "added `src/web/e2e/README.md` runbook and ignored Playwright output artifacts in `.gitignore`",
+        "Verified browser E2E end-to-end against live local runtime:",
+        "restarted API on `http://127.0.0.1:5000` with bootstrap seed flags enabled",
+        "ran Playwright against web app on `http://127.0.0.1:4180`",
+        "result: `3 passed`",
+        "Wired browser E2E into GitHub Actions CI:",
+        "updated `.github/workflows/ci.yml` to use `.NET 8`",
+        "added dedicated `browser-e2e` job with:",
+        "Postgres service",
+        "API restore/build",
+        "web `npm ci`",
+        "Playwright Chromium install (`--with-deps`)",
+        "bootstrapped API startup with deterministic seeded tenant/user for login",
+        "web dev server startup + health waits",
+        "Playwright run with CI credentials/env",
+        "artifact uploads for Playwright report/test-results and service logs",
+        "updated docker job dependencies to require `browser-e2e` success",
+        "Fixed frontend CI script mismatch:",
+        "added `type-check` script (`tsc -b`) to `src/web/package.json` so existing frontend CI step is valid"
       ],
       "inProgress": [
         "The worktree is still actively dirty across:",
@@ -164,13 +186,15 @@
       "nextUp": [
         "Continue tenant-admin endpoint validation depth and tighten placeholder/degraded paths that still return heuristic values.",
         "Reconcile remaining frontend/backend contract mismatches on pages that still assume richer DTO shapes than current API responses.",
-        "Optionally add browser-level UI E2E (Playwright/Cypress) to complement API-level E2E flows.",
         "Decide whether to harden the placeholder `NoOpEmailProvider` path or replace it with a real configured provider implementation.",
-        "Decide whether tenant-admin should be fully supported now or temporarily pared back, then align its service layer to the current core entities instead of returning placeholder values."
+        "Decide whether tenant-admin should be fully supported now or temporarily pared back, then align its service layer to the current core entities instead of returning placeholder values.",
+        "Validate first green GitHub Actions run and tune any CI-only flake/timeouts if surfaced."
       ],
       "blockers": [
-        "There are no automated tests in the repo, so “done” currently means “implemented code exists,” not “behavior is validated.”",
-        "Smoke tests now exist and pass for deterministic core + Sprint A + Sprint B rates lifecycle (`4` tests), but broad module integration coverage is still incomplete.",
+        "Automated tests now exist at two levels:",
+        "backend API smoke/E2E (`src/api/ChannelManager.SmokeTests`)",
+        "browser E2E (`src/web/e2e`)",
+        "Browser E2E in CI depends on startup timing for API/web services; if CI runners are slow, timeout tuning may be required.",
         "The backend currently depends on the repo-local NuGet config to recover from a machine-level disabled `nuget.org` source; future environments may still need the same fix.",
         "The new properties bootstrap endpoint currently maps property contact fields (`phone`, `email`, `website`) to empty placeholders because those fields are not present on the current property entity.",
         "`NoOpEmailProvider` keeps runtime DI healthy but does not actually deliver mail, so invitations/messages are still operationally stubbed.",
@@ -181,7 +205,7 @@
         "`.env` exists locally, so environment-sensitive work should avoid exposing secrets in commits or notes."
       ],
       "repoNotes": [
-        "Branch: `master`",
+        "Branch: `codex/runtime-stabilization-pass`",
         "Key docs:",
         "`README.md`",
         "`DELIVERY_CHECKLIST.md`",
@@ -292,6 +316,67 @@
       }
     },
     {
+      "name": "pdf-esigner",
+      "state": "in_progress",
+      "progressPercent": 58,
+      "progressLabel": "substantial web signer/editor product exists with desktop packaging and service scaffolding, but docs, persistence, and SDK migration state are still uneven",
+      "lastUpdated": "2026-04-05",
+      "repoPathName": "pdf-esigner",
+      "hasAgentsDoc": true,
+      "git": {
+        "branch": "fix/sdk-build",
+        "gitRootType": "shared",
+        "hasRemote": true,
+        "dirtyCount": 4
+      },
+      "currentGoal": [
+        "Stabilize `Aoexl Sign` into a clearly documented signing product, verify the current build path, and align the implementation state with the product plan before treating it as ready to ship."
+      ],
+      "doneRecently": [
+        "Built a substantial React + Vite PDF signer/editor with routes for upload, prepare/send flows, templates, workflows, analytics, audit trail, developer/docs pages, and signing pages.",
+        "Added service-layer code for signing requests, signing sessions, templates, completion certificates, field detection, email, Stripe, Razorpay, Supabase, and Aoexl/AoexlPdf integration points.",
+        "Added smoke scripts for signing-request creation, bulk create, field detection, and sequential signing flows.",
+        "Added Electron wrapper files for desktop packaging and local desktop development/build flows.",
+        "Captured a strategic product roadmap in `PLAN.md` for positioning the app as `Aoexl Sign`."
+      ],
+      "inProgress": [
+        "Active work is happening on branch `fix/sdk-build`.",
+        "Current local changes touch `src/App.jsx` and sibling SDK/dist files under the shared `compdf_esgin` git root, which suggests the SDK build and app integration are still in flight.",
+        "The implementation is much broader than the current `README.md`, which is still the default Vite template and does not describe the actual product."
+      ],
+      "nextUp": [
+        "Replace the default `README.md` with product-specific setup, architecture, and run instructions.",
+        "Verify the current build path and at least one smoke flow from this repo's scripts, then record the exact working command set.",
+        "Clarify the current Aoexl/AoexlPdf SDK migration state versus the older `pdfjs-dist` and `pdf-lib` path so future agents do not guess wrong.",
+        "Document how the web app, desktop wrapper, email sending, and backend/persistence pieces are expected to work together today."
+      ],
+      "blockers": [
+        "The repo's primary `README.md` is misleading because it still describes a default Vite template rather than the actual product.",
+        "The repo lives inside a shared git root, so unrelated sibling changes can confuse task ownership and status interpretation.",
+        "`.env` exists locally, so setup-sensitive work must avoid exposing secrets or license details.",
+        "Strategic docs in `PLAN.md` appear ahead of the current implementation/documentation state, which can lead agents to overstate readiness.",
+        "Backend/service integration behavior is not yet proven from this dashboard session."
+      ],
+      "repoNotes": [
+        "Branch: `fix/sdk-build`",
+        "Key docs:",
+        "`PLAN.md`",
+        "`README.md`",
+        "`AGENTS.md`",
+        "`STATUS.md`",
+        "Key runtime areas:",
+        "`src/App.jsx`",
+        "`src/pages/`",
+        "`src/services/`",
+        "`electron/`",
+        "`scripts/`"
+      ],
+      "narrative": {
+        "currentGoal": "Stabilize `Aoexl Sign` into a clearly documented signing product, verify the current build path, and align the implementation state with the product plan before treating it as ready to ship.",
+        "inProgress": "Active work is happening on branch `fix/sdk-build`."
+      }
+    },
+    {
       "name": "verifyAI",
       "state": "in_progress",
       "progressPercent": 35,
@@ -346,49 +431,6 @@
       "narrative": {
         "currentGoal": "Mature the current proof of concept into a documented, testable product for evaluating challenge or verification-system resilience.",
         "inProgress": "The app is beyond a blank scaffold, but several pieces still read like a prototype:"
-      }
-    },
-    {
-      "name": "clipMaker",
-      "state": "planned",
-      "progressPercent": 5,
-      "progressLabel": "folder exists but product scaffolding has not started",
-      "lastUpdated": "2026-04-03",
-      "repoPathName": "clipMaker",
-      "hasAgentsDoc": true,
-      "git": {
-        "branch": "master",
-        "gitRootType": "shared",
-        "hasRemote": false,
-        "dirtyCount": 1
-      },
-      "currentGoal": [
-        "Clarify the actual product scope and create the first real project scaffold."
-      ],
-      "doneRecently": [
-        "Created the project folder.",
-        "IDE metadata exists in `.idea/`, which suggests early setup work happened locally.",
-        "Added root documentation and agent-tracking files so future work can start from explicit project notes instead of guesswork."
-      ],
-      "inProgress": [
-        "No application code or runtime scaffold was found during inspection."
-      ],
-      "nextUp": [
-        "Define the product in one paragraph: what `clipMaker` should do, for whom, and the preferred stack.",
-        "Create a minimal runnable scaffold and a README that explains local setup.",
-        "Decide whether this should become its own git repo instead of living only under the shared `/Users/aryansingh/repos` git root."
-      ],
-      "blockers": [
-        "The folder name implies a video or editing tool, but there is not enough code yet to infer the intended architecture safely.",
-        "Without a README or entrypoint, future agents would have to guess and may pull the project in the wrong direction."
-      ],
-      "repoNotes": [
-        "Files currently detected: `.idea/.gitignore`, `.idea/misc.xml`, `.idea/workspace.xml`",
-        "No `README`, `package.json`, `requirements.txt`, `pyproject.toml`, or source tree was found."
-      ],
-      "narrative": {
-        "currentGoal": "Clarify the actual product scope and create the first real project scaffold.",
-        "inProgress": "No application code or runtime scaffold was found during inspection."
       }
     }
   ]
