@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-08T15:30:30.297Z",
+  "generatedAt": "2026-04-09T03:30:49.215Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -324,7 +324,7 @@
       "repoPathName": "pdf-esigner",
       "hasAgentsDoc": true,
       "git": {
-        "branch": "fix/sdk-build",
+        "branch": "master",
         "gitRootType": "shared",
         "hasRemote": true,
         "dirtyCount": 0
