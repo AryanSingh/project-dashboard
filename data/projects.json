@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-10T03:30:36.059Z",
+  "generatedAt": "2026-04-10T15:31:16.645Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -327,7 +327,7 @@
         "branch": "master",
         "gitRootType": "shared",
         "hasRemote": true,
-        "dirtyCount": 4
+        "dirtyCount": 0
       },
       "currentGoal": [
         "Stabilize `Aoexl Sign` into a clearly documented signing product, verify the current build path, and align the implementation state with the product plan before treating it as ready to ship."
