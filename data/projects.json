@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-12T03:30:49.945Z",
+  "generatedAt": "2026-04-12T15:44:07.538Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -227,16 +227,16 @@
     {
       "name": "pdf-esigner",
       "state": "in_progress",
-      "progressPercent": 91,
-      "progressLabel": "live signing, public PDF tools, developer/docs surface, SEO, and first-batch outreach automation are in place; remaining work is response tracking and scaling discipline",
-      "lastUpdated": "2026-04-11",
+      "progressPercent": 92,
+      "progressLabel": "live signing, public PDF tools, developer/docs surface, SEO, outreach automation, and production signing-request delivery are in place; remaining work is response tracking and scaling discipline",
+      "lastUpdated": "2026-04-12",
       "repoPathName": "pdf-esigner",
       "hasAgentsDoc": true,
       "git": {
         "branch": "master",
         "gitRootType": "shared",
         "hasRemote": true,
-        "dirtyCount": 26
+        "dirtyCount": 4
       },
       "currentGoal": [
         "Finish the last release-facing polish around `Aoexl Sign`: keep the live product stable, maintain a consumer-safe docs surface, preserve a clear internal handoff trail, and close the remaining launch/outreach gaps without regressions."
@@ -258,12 +258,20 @@
         "`npm run outreach:send` sends source-backed rows through Resend and writes a ledger/report.",
         "Copperlane and Veritus were sent successfully.",
         "Mayflower, EigenPal, and Brickwise were skipped/held automatically instead of guessing unverified emails.",
-        "Re-ran the main build/test/smoke suite and recorded the latest exhaustive status in `docs-site/internal/operations/testing-status-2026-04-11-exhaustive.md`."
+        "Re-ran the main build/test/smoke suite and recorded the latest exhaustive status in `docs-site/internal/operations/testing-status-2026-04-11-exhaustive.md`.",
+        "Fixed live signing-request request creation and invite delivery hardening:",
+        "`create-signing-request` no longer fails at the Supabase gateway with `401 Invalid JWT`",
+        "production SendGrid secrets are configured",
+        "invite delivery now succeeds again from the production edge flow",
+        "provider fallback logic exists so missing SendGrid config does not silently kill invites in the future"
       ],
       "inProgress": [
         "The repo is now being maintained from `master` after a long integration/fix phase; launch-readiness work is mostly incremental rather than foundational.",
         "Public docs are now consumer-safe, but they still need periodic judgment calls so internal/ops material does not drift back into the public surface.",
-        "Final ops/outreach follow-through is still ongoing: response tracking, reply/objection handling, email/domain sanity checks, and any last-mile regressions found during manual usage."
+        "Final ops/outreach follow-through is still ongoing: response tracking, reply/objection handling, email/domain sanity checks, and any last-mile regressions found during manual usage.",
+        "Session-expiry handling in the sender UI still needs a final UI-layer decision:",
+        "the shared signing-request service now returns a typed `session_expired` error after retry",
+        "redirect/login recovery should be handled by pages/auth boundaries, not inside the shared service itself"
       ],
       "nextUp": [
         "Track replies and objections from the first automated outreach sends in `outreach/FIRST_BATCH_TRACKER.md`.",
@@ -271,6 +279,7 @@
         "Keep the outreach claim discipline: lead with PDF tools plus embedded/hosted signing, and do not claim provider-backed identity verification as live.",
         "Keep the launch/outreach checklist current as remaining manual/operator items close.",
         "Continue tightening polish issues found during real usage, especially around send/email edge cases, signer UX, and consumer integrations.",
+        "Add a deliberate UI response for `session_expired` in sender-facing pages/panels instead of relying on service-layer redirects.",
         "Preserve the public/internal docs split and keep handoff notes current whenever release-facing behavior changes.",
         "Finish any remaining collateral/workflow updates needed for outbound outreach and broader launch confidence."
       ],
