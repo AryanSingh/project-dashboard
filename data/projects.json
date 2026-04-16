@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-16T02:53:06.181Z",
+  "generatedAt": "2026-04-16T03:30:25.065Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 3,
@@ -381,7 +381,7 @@
       "repoPathName": "pdf-esigner",
       "hasAgentsDoc": true,
       "git": {
-        "branch": "master",
+        "branch": "codex/india-product-isolated",
         "gitRootType": "shared",
         "hasRemote": true,
         "dirtyCount": 7
