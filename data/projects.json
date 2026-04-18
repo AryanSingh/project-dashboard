@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-18T03:30:42.047Z",
+  "generatedAt": "2026-04-18T15:30:47.911Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -233,10 +233,10 @@
       "repoPathName": "pdf-esigner",
       "hasAgentsDoc": true,
       "git": {
-        "branch": "codex/demo-2026-04-16",
+        "branch": "codex/responsive-2026-04-18",
         "gitRootType": "shared",
         "hasRemote": true,
-        "dirtyCount": 31
+        "dirtyCount": 17
       },
       "currentGoal": [
         "Finish the last release-facing polish around `Aoexl Sign`: keep the live product stable, maintain a consumer-safe docs surface, preserve a clear internal handoff trail, and close the remaining launch/outreach gaps without regressions."
