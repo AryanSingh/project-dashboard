@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-19T03:30:30.193Z",
+  "generatedAt": "2026-04-19T15:30:31.451Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -236,7 +236,7 @@
         "branch": "codex/responsive-2026-04-18",
         "gitRootType": "shared",
         "hasRemote": true,
-        "dirtyCount": 17
+        "dirtyCount": 18
       },
       "currentGoal": [
         "Finish the last release-facing polish around `Aoexl Sign`: keep the live product stable, maintain a consumer-safe docs surface, preserve a clear internal handoff trail, and close the remaining launch/outreach gaps without regressions."
