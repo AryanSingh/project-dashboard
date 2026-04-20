@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-20T03:30:32.380Z",
+  "generatedAt": "2026-04-20T15:30:36.306Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -233,10 +233,10 @@
       "repoPathName": "pdf-esigner",
       "hasAgentsDoc": true,
       "git": {
-        "branch": "codex/aoexl-mcp-connector",
+        "branch": "master",
         "gitRootType": "shared",
         "hasRemote": true,
-        "dirtyCount": 0
+        "dirtyCount": 1
       },
       "currentGoal": [
         "Finish the last release-facing polish around `Aoexl Sign`: keep the live product stable, maintain a consumer-safe docs surface, preserve a clear internal handoff trail, and close the remaining launch/outreach gaps without regressions."
@@ -255,7 +255,11 @@
         "Added internal change documentation at `docs-site/internal/operations/change-summary-2026-04-20.md`.",
         "Added `Images to PDF` to the public PDF tools surface, including single/multi-image conversion, reorder, page size, fit mode, margins, and output naming.",
         "Reworked the public landing/navigation so PDF tools are the lead wedge and the marketing nav exposes the real current feature surface more clearly.",
+        "Replaced stale third-party-branded public demo screenshots and sample PDFs with neutral Aoexl demo collateral.",
+        "Cleaned the public demo viewer chrome so the embedded workspace no longer collides with the marketing nav while scrolling.",
+        "Added a compact mobile marketing menu so the public header exposes product, tools, developer, resource, pricing, sign-in, and contact destinations on small screens.",
         "Reworked `/developers` into a more documentation-like in-app hub that links quickstarts, guides, API docs, webhooks, and dashboard operations while preserving existing SDK/demo/webhook functionality.",
+        "Added stable `/developers#...` deep links for the Developer Hub docs/articles and major page sections.",
         "Added app/docs SEO basics:",
         "route-aware metadata for public app routes",
         "`noindex,nofollow` for signer/login/authenticated routes",
