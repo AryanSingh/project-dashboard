@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-19T15:30:31.451Z",
+  "generatedAt": "2026-04-20T03:30:32.380Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -227,21 +227,32 @@
     {
       "name": "pdf-esigner",
       "state": "in_progress",
-      "progressPercent": 92,
-      "progressLabel": "live signing, public PDF tools, developer/docs surface, SEO, outreach automation, and production signing-request delivery are in place; remaining work is response tracking and scaling discipline",
-      "lastUpdated": "2026-04-12",
+      "progressPercent": 94,
+      "progressLabel": "SDK 1.2.7 viewer stabilization, public app responsiveness, docs fixes, and the outreach-app split are merged; remaining work is deployment discipline, response tracking, and operational follow-through",
+      "lastUpdated": "2026-04-20",
       "repoPathName": "pdf-esigner",
       "hasAgentsDoc": true,
       "git": {
-        "branch": "codex/responsive-2026-04-18",
+        "branch": "codex/aoexl-mcp-connector",
         "gitRootType": "shared",
         "hasRemote": true,
-        "dirtyCount": 18
+        "dirtyCount": 0
       },
       "currentGoal": [
         "Finish the last release-facing polish around `Aoexl Sign`: keep the live product stable, maintain a consumer-safe docs surface, preserve a clear internal handoff trail, and close the remaining launch/outreach gaps without regressions."
       ],
       "doneRecently": [
+        "Merged the SDK/viewer stabilization and outreach split into `master`:",
+        "`@aoexl/sign` is prepared as `1.2.7`",
+        "SDK consumers can use `base` for self-hosted assets",
+        "first-load zoom can use `config.initialViewMode: \"fit-width\"`",
+        "flattened-document messaging is configurable",
+        "small PDFs eager-render to reduce short-document scroll stutter",
+        "engine asset loading starts in parallel with license validation",
+        "stale signing fields are cleared when opening/uploading another PDF",
+        "SDK tests pass with `57 passed`",
+        "Removed outreach from the customer-facing app route/sidebar and moved it into the standalone private `outreach-app` workspace.",
+        "Added internal change documentation at `docs-site/internal/operations/change-summary-2026-04-20.md`.",
         "Added `Images to PDF` to the public PDF tools surface, including single/multi-image conversion, reorder, page size, fit mode, margins, and output naming.",
         "Reworked the public landing/navigation so PDF tools are the lead wedge and the marketing nav exposes the real current feature surface more clearly.",
         "Reworked `/developers` into a more documentation-like in-app hub that links quickstarts, guides, API docs, webhooks, and dashboard operations while preserving existing SDK/demo/webhook functionality.",
@@ -267,6 +278,7 @@
       ],
       "inProgress": [
         "The repo is now being maintained from `master` after a long integration/fix phase; launch-readiness work is mostly incremental rather than foundational.",
+        "Outreach can continue internally through `outreach-app`, but it should not be deployed publicly unless protected by Cloudflare Access or equivalent internal auth.",
         "Public docs are now consumer-safe, but they still need periodic judgment calls so internal/ops material does not drift back into the public surface.",
         "Final ops/outreach follow-through is still ongoing: response tracking, reply/objection handling, email/domain sanity checks, and any last-mile regressions found during manual usage.",
         "Session-expiry handling in the sender UI still needs a final UI-layer decision:",
@@ -274,6 +286,8 @@
         "redirect/login recovery should be handled by pages/auth boundaries, not inside the shared service itself"
       ],
       "nextUp": [
+        "If deploying the public app, build/deploy only `pdf-esigner`; do not deploy `outreach-app` to the public site.",
+        "Decide whether generated outreach reports should remain committed as private audit artifacts or be moved to ignored storage.",
         "Track replies and objections from the first automated outreach sends in `outreach/FIRST_BATCH_TRACKER.md`.",
         "Add source-backed emails for Mayflower, EigenPal, and Brickwise if found; the sender will pick them up on a future run.",
         "Keep the outreach claim discipline: lead with PDF tools plus embedded/hosted signing, and do not claim provider-backed identity verification as live.",
