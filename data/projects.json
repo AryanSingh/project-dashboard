@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-20T15:30:36.306Z",
+  "generatedAt": "2026-04-21T03:30:43.877Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -229,14 +229,14 @@
       "state": "in_progress",
       "progressPercent": 94,
       "progressLabel": "SDK 1.2.7 viewer stabilization, public app responsiveness, docs fixes, and the outreach-app split are merged; remaining work is deployment discipline, response tracking, and operational follow-through",
-      "lastUpdated": "2026-04-20",
+      "lastUpdated": "2026-04-21",
       "repoPathName": "pdf-esigner",
       "hasAgentsDoc": true,
       "git": {
         "branch": "master",
         "gitRootType": "shared",
         "hasRemote": true,
-        "dirtyCount": 1
+        "dirtyCount": 0
       },
       "currentGoal": [
         "Finish the last release-facing polish around `Aoexl Sign`: keep the live product stable, maintain a consumer-safe docs surface, preserve a clear internal handoff trail, and close the remaining launch/outreach gaps without regressions."
@@ -260,6 +260,11 @@
         "Added a compact mobile marketing menu so the public header exposes product, tools, developer, resource, pricing, sign-in, and contact destinations on small screens.",
         "Reworked `/developers` into a more documentation-like in-app hub that links quickstarts, guides, API docs, webhooks, and dashboard operations while preserving existing SDK/demo/webhook functionality.",
         "Added stable `/developers#...` deep links for the Developer Hub docs/articles and major page sections.",
+        "Added multi-tenant MCP distribution groundwork:",
+        "in-app MCP API key generation/revocation in Settings",
+        "per-user API-key validation flow for the hosted MCP Worker",
+        "docs-site guide for Claude Desktop / Cursor MCP setup",
+        "publishable `aoexl-mcp` npm wrapper plus Smithery / MCP Registry metadata",
         "Added app/docs SEO basics:",
         "route-aware metadata for public app routes",
         "`noindex,nofollow` for signer/login/authenticated routes",
@@ -299,7 +304,11 @@
         "Continue tightening polish issues found during real usage, especially around send/email edge cases, signer UX, and consumer integrations.",
         "Add a deliberate UI response for `session_expired` in sender-facing pages/panels instead of relying on service-layer redirects.",
         "Preserve the public/internal docs split and keep handoff notes current whenever release-facing behavior changes.",
-        "Finish any remaining collateral/workflow updates needed for outbound outreach and broader launch confidence."
+        "Finish any remaining collateral/workflow updates needed for outbound outreach and broader launch confidence.",
+        "Finish MCP launch operations outside the repo:",
+        "deploy the hosted Worker with production secrets",
+        "mirror the connector into a small public repo if registry metadata should point somewhere public",
+        "publish the MCP listing surfaces and add the connect badge on the marketing site"
       ],
       "blockers": [
         "The repo lives inside a shared git root, so unrelated sibling changes can still confuse task ownership and status interpretation.",
