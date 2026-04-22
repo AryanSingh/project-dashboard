@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-22T03:31:02.380Z",
+  "generatedAt": "2026-04-22T15:31:00.294Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -236,7 +236,7 @@
         "branch": "master",
         "gitRootType": "shared",
         "hasRemote": true,
-        "dirtyCount": 16
+        "dirtyCount": 17
       },
       "currentGoal": [
         "Finish the last release-facing polish around `Aoexl Sign`: keep the live product stable, maintain a consumer-safe docs surface, preserve a clear internal handoff trail, and close the remaining launch/outreach gaps without regressions."
@@ -250,6 +250,7 @@
         "fixed docs-page SEO dispatch so docs canonicals/titles no longer rely on a broken fallback variable",
         "Prepared an external SEO/distribution launch kit with Product Hunt copy, listing blurbs, Search Console follow-through URLs, and community-post drafts in `docs/seo-external/DISTRIBUTION_LAUNCH_KIT.md`.",
         "Added a condensed execution guide for launch day in `docs/seo-external/LAUNCH_DAY_CHECKLIST.md` so Product Hunt + Search Console + first-wave distribution can happen in one focused session.",
+        "Added dedicated launch-ready copy files for Product Hunt, software directories, and first-wave social/community posts under `docs/seo-external/`.",
         "Merged the SDK/viewer stabilization and outreach split into `master`:",
         "`@aoexl/sign` is prepared as `1.2.7`",
         "SDK consumers can use `base` for self-hosted assets",
