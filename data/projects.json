@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-22T15:31:00.294Z",
+  "generatedAt": "2026-04-23T03:30:52.719Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -227,8 +227,8 @@
     {
       "name": "pdf-esigner",
       "state": "in_progress",
-      "progressPercent": 95,
-      "progressLabel": "SDK 1.2.7 viewer stabilization, public SEO pages, docs crawl improvements, and the outreach-app split are merged; remaining work is external distribution, response tracking, and operational follow-through",
+      "progressPercent": 96,
+      "progressLabel": "SDK 1.2.7 viewer stabilization, expanded public SEO pages, docs crawl improvements, and the outreach-app split are merged; remaining work is external distribution, response tracking, and operational follow-through",
       "lastUpdated": "2026-04-22",
       "repoPathName": "pdf-esigner",
       "hasAgentsDoc": true,
@@ -236,7 +236,7 @@
         "branch": "master",
         "gitRootType": "shared",
         "hasRemote": true,
-        "dirtyCount": 17
+        "dirtyCount": 27
       },
       "currentGoal": [
         "Finish the last release-facing polish around `Aoexl Sign`: keep the live product stable, maintain a consumer-safe docs surface, preserve a clear internal handoff trail, and close the remaining launch/outreach gaps without regressions."
@@ -246,7 +246,10 @@
         "added standard favicon/search assets plus `site.webmanifest`",
         "removed `/login` from the sitemap and added explicit public route coverage for `/docs` and `/tools`",
         "added more keyword landing pages for comparison/workflow intent (`/hellosign-api-alternative`, `/online-pdf-signer`)",
+        "added additional keyword pages for exact SDK/API intent (`/esignature-sdk`, `/pdf-signing-api`)",
         "strengthened blog/docs internal linking and structured data for crawlability",
+        "rewrote blog metadata toward higher-intent search phrasing and fixed broken markdown links that pointed at nonexistent `/guides/*` and `/api/*` routes",
+        "added a clearer “choose your integration path” conversion section on `/developers`",
         "fixed docs-page SEO dispatch so docs canonicals/titles no longer rely on a broken fallback variable",
         "Prepared an external SEO/distribution launch kit with Product Hunt copy, listing blurbs, Search Console follow-through URLs, and community-post drafts in `docs/seo-external/DISTRIBUTION_LAUNCH_KIT.md`.",
         "Added a condensed execution guide for launch day in `docs/seo-external/LAUNCH_DAY_CHECKLIST.md` so Product Hunt + Search Console + first-wave distribution can happen in one focused session.",
@@ -274,6 +277,7 @@
         "per-user API-key validation flow for the hosted MCP Worker",
         "docs-site guide for Claude Desktop / Cursor MCP setup",
         "publishable `aoexl-mcp` npm wrapper plus Smithery / MCP Registry metadata",
+        "public connector repo now lives at `rails2track/aoexl-mcp`",
         "Added app/docs SEO basics:",
         "route-aware metadata for public app routes",
         "`noindex,nofollow` for signer/login/authenticated routes",
@@ -316,8 +320,8 @@
         "Finish any remaining collateral/workflow updates needed for outbound outreach and broader launch confidence.",
         "Finish MCP launch operations outside the repo:",
         "deploy the hosted Worker with production secrets",
-        "mirror the connector into a small public repo if registry metadata should point somewhere public",
-        "publish the MCP listing surfaces and add the connect badge on the marketing site",
+        "verify Smithery / MCP Registry listings use the current public repo identity",
+        "add the connect badge on the marketing site",
         "Use Search Console to request indexing for `/`, `/pricing`, `/developers`, `/docs`, `/blog`, and the keyword pages now that the updated sitemap/routes are live"
       ],
       "blockers": [
