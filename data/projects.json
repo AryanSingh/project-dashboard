@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-24T03:30:20.717Z",
+  "generatedAt": "2026-04-24T15:30:34.733Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -227,16 +227,16 @@
     {
       "name": "pdf-esigner",
       "state": "in_progress",
-      "progressPercent": 96,
-      "progressLabel": "SDK 1.2.7 viewer stabilization, expanded public SEO pages, docs crawl improvements, and the outreach-app split are merged; remaining work is external distribution, response tracking, and operational follow-through",
-      "lastUpdated": "2026-04-22",
+      "progressPercent": 97,
+      "progressLabel": "SDK 1.2.7 viewer stabilization, expanded public SEO pages, launch/distribution docs, and the mobile smoke shell refresh are merged; remaining work is external distribution, response tracking, and operational follow-through",
+      "lastUpdated": "2026-04-24",
       "repoPathName": "pdf-esigner",
       "hasAgentsDoc": true,
       "git": {
-        "branch": "master",
+        "branch": "codex/sms-delivery-channel",
         "gitRootType": "shared",
         "hasRemote": true,
-        "dirtyCount": 27
+        "dirtyCount": 5
       },
       "currentGoal": [
         "Finish the last release-facing polish around `Aoexl Sign`: keep the live product stable, maintain a consumer-safe docs surface, preserve a clear internal handoff trail, and close the remaining launch/outreach gaps without regressions."
@@ -254,6 +254,11 @@
         "Prepared an external SEO/distribution launch kit with Product Hunt copy, listing blurbs, Search Console follow-through URLs, and community-post drafts in `docs/seo-external/DISTRIBUTION_LAUNCH_KIT.md`.",
         "Added a condensed execution guide for launch day in `docs/seo-external/LAUNCH_DAY_CHECKLIST.md` so Product Hunt + Search Console + first-wave distribution can happen in one focused session.",
         "Added dedicated launch-ready copy files for Product Hunt, software directories, and first-wave social/community posts under `docs/seo-external/`.",
+        "Refreshed the Flutter smoke app so mobile validation better reflects the real product direction:",
+        "Android package/application identity moved from the example placeholder to `com.aoexl.mobile`",
+        "iOS scaffolding was added to the smoke app",
+        "the app now has a hosted-product shell plus a native SDK demo entry point instead of only a single test screen",
+        "Flutter bridge packaging was kept aligned with the current SDK integration surface",
         "Merged the SDK/viewer stabilization and outreach split into `master`:",
         "`@aoexl/sign` is prepared as `1.2.7`",
         "SDK consumers can use `base` for self-hosted assets",
@@ -303,6 +308,7 @@
         "Outreach can continue internally through `outreach-app`, but it should not be deployed publicly unless protected by Cloudflare Access or equivalent internal auth.",
         "Public docs are now consumer-safe, but they still need periodic judgment calls so internal/ops material does not drift back into the public surface.",
         "Final ops/outreach follow-through is still ongoing: response tracking, reply/objection handling, email/domain sanity checks, and any last-mile regressions found during manual usage.",
+        "Mobile validation is materially better than the original smoke app, but it is still a validation shell rather than a production mobile product.",
         "Session-expiry handling in the sender UI still needs a final UI-layer decision:",
         "the shared signing-request service now returns a typed `session_expired` error after retry",
         "redirect/login recovery should be handled by pages/auth boundaries, not inside the shared service itself"
@@ -314,6 +320,7 @@
         "Add source-backed emails for Mayflower, EigenPal, and Brickwise if found; the sender will pick them up on a future run.",
         "Keep the outreach claim discipline: lead with PDF tools plus embedded/hosted signing, and do not claim provider-backed identity verification as live.",
         "Keep the launch/outreach checklist current as remaining manual/operator items close.",
+        "Use the Flutter smoke app as a validation target for SDK/mobile changes, but do not treat it as a launch-ready customer app yet.",
         "Continue tightening polish issues found during real usage, especially around send/email edge cases, signer UX, and consumer integrations.",
         "Add a deliberate UI response for `session_expired` in sender-facing pages/panels instead of relying on service-layer redirects.",
         "Preserve the public/internal docs split and keep handoff notes current whenever release-facing behavior changes.",
