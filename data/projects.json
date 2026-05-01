@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-01T05:38:56.796Z",
+  "generatedAt": "2026-05-01T15:31:53.637Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -236,7 +236,7 @@
         "branch": "codex/sms-delivery-channel",
         "gitRootType": "shared",
         "hasRemote": true,
-        "dirtyCount": 3
+        "dirtyCount": 6
       },
       "currentGoal": [
         "Finish the last release-facing polish around `Aoexl Sign`: keep the live product stable, maintain a consumer-safe docs surface, preserve a clear internal handoff trail, and close the remaining launch/outreach gaps without regressions."
