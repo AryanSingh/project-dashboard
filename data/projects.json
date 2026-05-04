@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-04T03:31:28.014Z",
+  "generatedAt": "2026-05-04T15:32:01.092Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -227,21 +227,29 @@
     {
       "name": "pdf-esigner",
       "state": "in_progress",
-      "progressPercent": 97,
-      "progressLabel": "SDK 1.2.7 viewer stabilization, expanded public SEO pages, launch/distribution docs, and the mobile smoke shell refresh are merged; remaining work is external distribution, response tracking, and operational follow-through",
-      "lastUpdated": "2026-04-24",
+      "progressPercent": 98,
+      "progressLabel": "Release-facing app/docs/security work is merged; Aadhaar work is hardened but gated off, India Desk is disabled, and remaining tasks are deployment, launch operations, and monitored rollout",
+      "lastUpdated": "2026-05-04",
       "repoPathName": "pdf-esigner",
       "hasAgentsDoc": true,
       "git": {
         "branch": "codex/sms-delivery-channel",
         "gitRootType": "shared",
         "hasRemote": true,
-        "dirtyCount": 6
+        "dirtyCount": 0
       },
       "currentGoal": [
-        "Finish the last release-facing polish around `Aoexl Sign`: keep the live product stable, maintain a consumer-safe docs surface, preserve a clear internal handoff trail, and close the remaining launch/outreach gaps without regressions."
+        "Push the hardened release batch, keep the public app/docs truthful about what is live, and deploy only the stable customer-facing surface while leaving incomplete Aadhaar/India-specific flows disabled by default."
       ],
       "doneRecently": [
+        "Hardened the Aadhaar eSign callback flow before allowing it anywhere near production:",
+        "added callback-secret validation for Digio webhook handling",
+        "added the missing `aadhaar-esign-status` edge function",
+        "changed completion handling so a failed completion pipeline does not still mark a session as completed",
+        "added schema support for Digio document/reference identifiers and eSign metadata in `supabase/migrations/20260504_aadhaar_esign.sql`",
+        "Gated Aadhaar eSign behind `VITE_AADHAAR_ESIGN_ENABLED=false` so the feature stays off unless the full Digio secret/webhook setup is intentionally enabled in an environment.",
+        "Disabled `India Desk` from the live app surface and redirected `/india-desk` to `/send` so partially finished regional flows are not user-reachable.",
+        "Updated repo ignore rules so Flutter-generated machine-local caches and ad hoc artifacts do not drift back into commits.",
         "Finished another public SEO pass and deployed it live:",
         "added standard favicon/search assets plus `site.webmanifest`",
         "removed `/login` from the sitemap and added explicit public route coverage for `/docs` and `/tools`",
@@ -307,6 +315,8 @@
         "The repo is now being maintained from `master` after a long integration/fix phase; launch-readiness work is mostly incremental rather than foundational.",
         "Outreach can continue internally through `outreach-app`, but it should not be deployed publicly unless protected by Cloudflare Access or equivalent internal auth.",
         "Public docs are now consumer-safe, but they still need periodic judgment calls so internal/ops material does not drift back into the public surface.",
+        "Aadhaar eSign exists as staged product groundwork, but the customer-safe state is \"present in code, off in production by default\" until Digio credentials, webhook validation, and operator readiness are all deliberately confirmed.",
+        "India-focused flows are intentionally reduced rather than expanded for the moment; stability and truth-in-surface take priority over unfinished route exposure.",
         "Final ops/outreach follow-through is still ongoing: response tracking, reply/objection handling, email/domain sanity checks, and any last-mile regressions found during manual usage.",
         "Mobile validation is materially better than the original smoke app, but it is still a validation shell rather than a production mobile product.",
         "Session-expiry handling in the sender UI still needs a final UI-layer decision:",
@@ -315,6 +325,8 @@
       ],
       "nextUp": [
         "If deploying the public app, build/deploy only `pdf-esigner`; do not deploy `outreach-app` to the public site.",
+        "Keep `VITE_AADHAAR_ESIGN_ENABLED=false` in production until Digio webhook delivery, signed-PDF completion flow, and operator runbook steps are validated end-to-end in a controlled environment.",
+        "Do not re-expose `India Desk` publicly until its product scope is intentionally revived and tested.",
         "Decide whether generated outreach reports should remain committed as private audit artifacts or be moved to ignored storage.",
         "Track replies and objections from the first automated outreach sends in `outreach/FIRST_BATCH_TRACKER.md`.",
         "Add source-backed emails for Mayflower, EigenPal, and Brickwise if found; the sender will pick them up on a future run.",
@@ -334,11 +346,12 @@
       "blockers": [
         "The repo lives inside a shared git root, so unrelated sibling changes can still confuse task ownership and status interpretation.",
         "`.env` exists locally, so setup-sensitive work must avoid exposing secrets or license details.",
+        "Aadhaar rollout is configuration-sensitive: enabling the flag without valid `DIGIO_CLIENT_ID`, `DIGIO_CLIENT_SECRET`, and `DIGIO_WEBHOOK_SECRET` will correctly fail closed.",
         "Some final launch items remain operational rather than code-only: provider account readiness, production email health, support/contact plumbing, and human validation steps.",
         "Public docs now intentionally exclude internal ops/strategy; future edits must maintain that separation."
       ],
       "repoNotes": [
-        "Branch: `master`",
+        "Branch: `codex/sms-delivery-channel`",
         "Key docs:",
         "`PLAN.md`",
         "`README.md`",
@@ -354,7 +367,7 @@
         "`scripts/`"
       ],
       "narrative": {
-        "currentGoal": "Finish the last release-facing polish around `Aoexl Sign`: keep the live product stable, maintain a consumer-safe docs surface, preserve a clear internal handoff trail, and close the remaining launch/outreach gaps without regressions.",
+        "currentGoal": "Push the hardened release batch, keep the public app/docs truthful about what is live, and deploy only the stable customer-facing surface while leaving incomplete Aadhaar/India-specific flows disabled by default.",
         "inProgress": "The repo is now being maintained from `master` after a long integration/fix phase; launch-readiness work is mostly incremental rather than foundational."
       }
     },
