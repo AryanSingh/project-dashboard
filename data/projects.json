@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-08T03:31:35.685Z",
+  "generatedAt": "2026-05-09T03:36:31.930Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -236,7 +236,7 @@
         "branch": "codex/sms-delivery-channel",
         "gitRootType": "shared",
         "hasRemote": true,
-        "dirtyCount": 1
+        "dirtyCount": 2
       },
       "currentGoal": [
         "Push the hardened release batch, keep the public app/docs truthful about what is live, and deploy only the stable customer-facing surface while leaving incomplete Aadhaar/India-specific flows disabled by default."
