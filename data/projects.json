@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T03:36:31.930Z",
+  "generatedAt": "2026-05-09T18:53:30.213Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -12,14 +12,14 @@
       "state": "in_progress",
       "progressPercent": 100,
       "progressLabel": "Sprint A/B + bootstrap hardening complete with expanded API end-to-end flow coverage",
-      "lastUpdated": "2026-04-05",
+      "lastUpdated": "2026-05-09",
       "repoPathName": "channel-manager",
       "hasAgentsDoc": true,
       "git": {
         "branch": "codex/runtime-stabilization-pass",
         "gitRootType": "dedicated",
         "hasRemote": true,
-        "dirtyCount": 10
+        "dirtyCount": 7
       },
       "currentGoal": [
         "Stabilize the active backend refactor, preserve the now-working local build/start path, and continue closing the highest-value runtime and frontend/backend contract gaps."
@@ -171,7 +171,16 @@
         "artifact uploads for Playwright report/test-results and service logs",
         "updated docker job dependencies to require `browser-e2e` success",
         "Fixed frontend CI script mismatch:",
-        "added `type-check` script (`tsc -b`) to `src/web/package.json` so existing frontend CI step is valid"
+        "added `type-check` script (`tsc -b`) to `src/web/package.json` so existing frontend CI step is valid",
+        "Added a workable local demo path:",
+        "`scripts/demo/start-demo.sh` starts a seeded demo environment with local API + web app",
+        "`scripts/demo/stop-demo.sh` stops demo processes cleanly",
+        "`scripts/demo/web-server.mjs` serves the built web app and proxies `/api` + `/hubs` to the backend for a more stable demo surface than detached Vite",
+        "`docs/DEMO_RUNBOOK.md` documents the demo URL, credentials, and walkthrough",
+        "Verified the demo launcher locally:",
+        "API served on `http://127.0.0.1:5000`",
+        "web app served on `http://127.0.0.1:5173`",
+        "seeded demo login works with deterministic tenant bootstrap credentials"
       ],
       "inProgress": [
         "The worktree is still actively dirty across:",
@@ -188,13 +197,15 @@
         "Reconcile remaining frontend/backend contract mismatches on pages that still assume richer DTO shapes than current API responses.",
         "Decide whether to harden the placeholder `NoOpEmailProvider` path or replace it with a real configured provider implementation.",
         "Decide whether tenant-admin should be fully supported now or temporarily pared back, then align its service layer to the current core entities instead of returning placeholder values.",
-        "Validate first green GitHub Actions run and tune any CI-only flake/timeouts if surfaced."
+        "Validate first green GitHub Actions run and tune any CI-only flake/timeouts if surfaced.",
+        "Decide whether to extend the demo server to support SignalR websocket proxying, or keep the current demo path focused on core dashboard/report/rates flows."
       ],
       "blockers": [
         "Automated tests now exist at two levels:",
         "backend API smoke/E2E (`src/api/ChannelManager.SmokeTests`)",
         "browser E2E (`src/web/e2e`)",
         "Browser E2E in CI depends on startup timing for API/web services; if CI runners are slow, timeout tuning may be required.",
+        "The local demo web server currently proxies HTTP traffic to the API and is suitable for primary workflows, but it does not yet implement websocket upgrade handling for full SignalR parity.",
         "The backend currently depends on the repo-local NuGet config to recover from a machine-level disabled `nuget.org` source; future environments may still need the same fix.",
         "The new properties bootstrap endpoint currently maps property contact fields (`phone`, `email`, `website`) to empty placeholders because those fields are not present on the current property entity.",
         "`NoOpEmailProvider` keeps runtime DI healthy but does not actually deliver mail, so invitations/messages are still operationally stubbed.",
