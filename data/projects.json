@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-11T03:57:57.964Z",
+  "generatedAt": "2026-05-11T15:34:35.104Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -12,14 +12,14 @@
       "state": "in_progress",
       "progressPercent": 100,
       "progressLabel": "Sprint A/B + bootstrap hardening complete with expanded API end-to-end flow coverage",
-      "lastUpdated": "2026-05-10",
+      "lastUpdated": "2026-05-11",
       "repoPathName": "channel-manager",
       "hasAgentsDoc": true,
       "git": {
         "branch": "codex/runtime-stabilization-pass",
         "gitRootType": "dedicated",
         "hasRemote": true,
-        "dirtyCount": 13
+        "dirtyCount": 14
       },
       "currentGoal": [
         "Stabilize the active backend refactor, preserve the now-working local build/start path, and continue closing the highest-value runtime and frontend/backend contract gaps."
@@ -189,7 +189,14 @@
         "Re-validated hardened runtime against the live seeded demo stack:",
         "`dotnet build src/api/ChannelManager.sln --no-restore` passes",
         "backend smoke/E2E suite passes: `Passed: 5, Failed: 0`",
-        "browser Playwright E2E passes against `http://127.0.0.1:5173`: `3 passed`"
+        "browser Playwright E2E passes against `http://127.0.0.1:5173`: `3 passed`",
+        "Re-ran the full demo verification pass on May 11, 2026:",
+        "demo launcher starts cleanly and serves:",
+        "API on `http://127.0.0.1:5000`",
+        "web app on `http://127.0.0.1:5173`",
+        "backend smoke/E2E still passes: `Passed: 5, Failed: 0`",
+        "browser Playwright E2E still passes: `3 passed`",
+        "manual browser walkthrough confirmed login, dashboard shell, reservations/report tabs, front-office board, and rates lifecycle pages render and load against the live seeded stack"
       ],
       "inProgress": [
         "The worktree is still actively dirty across:",
@@ -203,6 +210,8 @@
       ],
       "nextUp": [
         "Decide whether to add a first-class public tenant-user membership relation, or keep the current billing-contact + invitation-derived tenant-admin model for this phase.",
+        "Remove the dashboard analytics KPI `404` so the demo no longer emits browser console errors on first load.",
+        "Clean up duplicate sidebar navigation entries so the manual demo flow is less confusing.",
         "Reconcile remaining frontend/backend contract mismatches on pages that still assume richer DTO shapes than current API responses.",
         "Decide whether to harden the placeholder `NoOpEmailProvider` path or replace it with a real configured provider implementation.",
         "Validate first green GitHub Actions run and tune any CI-only flake/timeouts if surfaced.",
@@ -218,6 +227,8 @@
         "The new properties bootstrap endpoint currently maps property contact fields (`phone`, `email`, `website`) to empty placeholders because those fields are not present on the current property entity.",
         "`NoOpEmailProvider` keeps runtime DI healthy but does not actually deliver mail, so invitations/messages are still operationally stubbed.",
         "Tenant-admin is more truthful than before, but it still depends on heuristic membership reconstruction because the core public schema lacks a dedicated tenant-user relation.",
+        "The dashboard still issues a `GET /api/v1/properties/{propertyId}/analytics/kpi` request that returns `404`, which shows up as browser console errors during manual demo use.",
+        "The sidebar currently shows duplicate navigation entries for several sections, which is confusing in manual walkthroughs even though the linked flows still work.",
         "The docs still overstate production readiness relative to the current codebase state.",
         "The auth slice currently uses stateless JWT refresh tokens; revocation/rotation persistence is not yet implemented.",
         "Tenant-aware login/runtime behavior is improved, but tenant context still depends on a resolvable tenant slug. Local multi-tenant developer ergonomics may need a more explicit tenant-selection path.",
