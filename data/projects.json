@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-12T15:32:56.493Z",
+  "generatedAt": "2026-05-13T03:31:31.009Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -11,7 +11,7 @@
       "name": "channel-manager",
       "state": "in_progress",
       "progressPercent": 100,
-      "progressLabel": "Analytics live, Night Audit wired, Guest Detail enriched, PackageManager full update",
+      "progressLabel": "isVip fix, inventory nav, CSV export, guest deduplication merge",
       "lastUpdated": "2026-05-12",
       "repoPathName": "channel-manager",
       "hasAgentsDoc": true,
@@ -19,12 +19,28 @@
         "branch": "codex/runtime-stabilization-pass",
         "gitRootType": "dedicated",
         "hasRemote": true,
-        "dirtyCount": 53
+        "dirtyCount": 60
       },
       "currentGoal": [
         "Deliver Phase 2 booking operations (Make A Reservation live, Hold Booking) and continue closing the remaining competitor parity gaps."
       ],
       "doneRecently": [
+        "**isVip fix**: Added `isVip = guest.IsVip` to both list and detail projections in `GuestsController`. Added `isVip: boolean` to `GuestDto` interface in `api.ts`. Removed `as any` casts from `GuestDetail.tsx` and `GuestProfiles.tsx`.",
+        "**Inventory Grid date navigation**: Changed `from` from fixed `startOfToday()` to navigable state. Added `WINDOW = 14` (2-week view). Prev/Next/Today buttons in a grouped border control. `dateHeaders` now generates 14 items instead of 90 — grid is much more usable.",
+        "**Reservations CSV export**: \"Export CSV\" button in Reservations header — generates client-side CSV (Ref, Status, Check-In, Check-Out, Total, Channel) from the already-fetched list and triggers a download. No new backend endpoint needed.",
+        "**Guest deduplication**: `GET /api/v1/guests/duplicates` returns groups of profiles sharing an email with booking counts. `POST /api/v1/guests/{sourceId}/merge-into/{targetId}` re-points all reservations from source → target, merges notes + VIP flag, deletes source. `GuestProfiles.tsx` shows an amber warning banner listing duplicate email groups; clicking a group opens a merge modal where staff picks the profile to keep.",
+        "**Record Payment on Folio**: `POST /api/v1/folios/{folioId}/payments` added to `FolioController` — validates amount, parses `PaymentMethod` by name, adds `FolioPayment`, updates `TotalPayments` + `Balance`. `FolioPage.tsx` has a green-tinted `RecordPaymentForm` (method selector, amount, optional reference) toggled by \"Record Payment\" button; Post Charge and Record Payment forms are mutually exclusive.",
+        "**Reservations search bar**: `ReservationFilterRequest` extended with `Search?` param; `ReservationsService.ListAsync` applies `ILike` filter on `InternalRef` and `ExternalBookingRef`; controller accepts `?search=`. `Reservations.tsx` has a 350ms debounced search input above the list tab with match count feedback.",
+        "**MakeReservation guest pre-fill**: Reads `?guestId=` from URL. Sets `existingGuestId` on the guest state; Step 1 advances directly to Step 3 (skipping Step 2) when pre-filled. Pre-filled guest banner shows name + email on the Review step. GuestDetail \"New Reservation\" button now passes `?guestId=${id}`.",
+        "**Availability Grid per-cell stop-sell**: `cellStopSellMutation` calls `POST /inventory/stop-sell` or `open-sell` with single date + roomTypeId. Right-clicking any cell opens a context menu offering \"Stop Sell\" or \"Open Sell\" depending on current state. Stop-sell cells now show ⊘ instead of —. Hint text added to subtitle.",
+        "**CI acceptance test job**: Added `acceptance` job to `.github/workflows/ci.yml` — spins up Postgres + API with bootstrap seed, runs `dotnet test ChannelManager.AcceptanceTests`, uploads results and API log as artifacts. Docker job now requires `acceptance` to pass.",
+        "**Guest Profiles — new-guest creation**: Added `POST /api/v1/guests` to `GuestsController` — validates required fields, deduplicates by email (409 on conflict), creates `GuestProfile`. `GuestProfiles.tsx` now has a debounced search bar (350ms, with clear button) and an inline `NewGuestPanel` form that opens on \"+ New Guest\" click, posts to the new endpoint, and refreshes the list on success.",
+        "**Folio page — charge grouping + inline post-charge**: `FolioController.GetReservationFolio` response now includes `folioId`. `FolioDto` type updated. `FolioPage.tsx` rebuilt: balance summary chips (Subtotal / Tax / Total / Balance Due with colour), charges grouped by department (Room/F&B/Service/Parking/Other) with coloured badges + per-group subtotals, payments section with green amounts, inline `PostChargeForm` (department dropdown, description, quantity, unit price, live total preview, posts to `POST /folios/{folioId}/charges`).",
+        "**Channels push-rates**: `POST /api/v1/channels/{connectionId}/push-rates` — resolves room types + active rate plans, calls `PushRateUpdateAsync` for each combination, updates `LastPushAt`, returns counts and date range. `ChannelsController` now injects `RatesDbContext`. Channel cards now show both \"Push Inventory\" and \"Push Rates\" buttons with individual spinners and success/error feedback.",
+        "**guestId server-side filter**: Added `?guestId=` param to `GET /api/v1/reservations`. Updated `ReservationFilterRequest`, `ReservationsService.ListAsync`, `ReservationsController.List`, and `GuestDetail.tsx` — stay history now fetches server-side instead of loading all property reservations client-side.",
+        "**Analytics range backfill**: Added `POST /api/v1/properties/{id}/analytics/build-snapshot-range?from=&to=` (max 90 days, skips errors per day). Added `BuildHistoryPanel` dashed-border card at top of Analytics page with date pickers and \"Build Range\" button; invalidates all analytics queries on success.",
+        "**Channels push-update**: `ChannelsController` extended with `POST /api/v1/channels/{connectionId}/push` — resolves active room types from inventory if none mapped, pushes next 7 days' inventory to each via `IChannelSyncJobHandler`, updates `LastPushAt`. `Channels.tsx` rebuilt: KPI strip, error alert banner, `ChannelCard` with \"Push Update\" button (shows success/error inline), last-sync relative timestamp, Wifi/WifiOff icon per status.",
+        "**BDD acceptance tests**: `MakeAReservation.feature` added with 3 scenarios (make reservation → Confirmed, availability → rate plans, hold booking → OnHold). `BookingOperationsParity.feature` updated from Draft/old-endpoint to OnHold/`/reservations/hold` and `/reservations/make`. `AcceptanceBindings.cs` updated with bindings for `I create a hold booking`, `I make a reservation`, `I request availability`, `the availability response contains at least {n} rate plans`.",
         "**Analytics page** (replaced static placeholder): Revenue tab (summary chips + stacked bar chart by room/F&B/other), Occupancy tab (dual-axis line: occupancy % + RevPAR), Channels tab (horizontal bar chart + breakdown table). All tabs have date-range pickers with 7d/30d/90d/YTD presets. Wired to live `/analytics/revenue`, `/analytics/occupancy`, `/analytics/channels`. Shows empty-state with hint to build snapshots from Dashboard.",
         "**Night Audit** (replaced placeholder): Two-step confirmation (amber warning card → run button) before executing `POST /api/v1/folios/night-audit/{propertyId}?date=`. Shows success card with business date on completion. Includes best-practice tips. Fixed authorization from `NightAuditor,SuperAdmin` to `[Authorize]` so any authenticated staff can run. Added `GET night-audit/{propertyId}/status` endpoint. Response changed from `204 NoContent` to `200 OK` with `{ ran, businessDate }`.",
         "**Guest Detail** (enriched): Avatar + name header with VIP badge, KPI strip (total stays with completed count, total spent with upcoming count, last stay date), stay history clickable list (filtered to current property, showing status badge + dates + amount), profile details card (DOB, notes). \"New Reservation\" quick-action button.",
@@ -299,12 +315,11 @@
         "The repo now has a working local backend build/start path and property bootstrap wiring, but runtime correctness beyond targeted smoke/build checks still needs module-by-module validation."
       ],
       "nextUp": [
-        "**Guest Profiles list** — currently just a table; add a search bar (already supported by `?search=`) and a \"New Guest\" inline creation form so staff can add guests without making a reservation first.",
-        "**GuestDetail reservation filter** — the stay history uses a client-side filter on `/reservations?propertyId=...`. A `?guestId=` server-side filter on the Reservations endpoint would be more correct and efficient for guests with many stays.",
-        "**Analytics snapshots** — the `Build Snapshot` button on Dashboard only builds today's. Add a `POST /analytics/rebuild-range?from=&to=` endpoint to back-fill historical data so Analytics charts show meaningful history.",
-        "**BDD scaffolding** — choose a runner (SpecFlow/Reqnroll), add `features/` folder, write first acceptance spec for Make A Reservation happy path.",
-        "**CI green run** — validate first green GitHub Actions run; tune startup wait/timeouts if needed.",
-        "**Channels page** — currently shows static connection list; add \"Push Update\" button to trigger `PushInventoryUpdateAsync` manually for a selected channel.",
+        "**CI green run** — validate first green GitHub Actions run; all jobs (backend unit, acceptance, browser-e2e) now exist in CI.",
+        "**Hold Booking batch convert** — Reservations list could show an \"On Hold\" tab/badge with a \"Convert All\" bulk action for front-desk morning workflow.",
+        "**Inventory Grid keyboard nav** — while the 2-week window is much better, adding left/right arrow key navigation for power users would speed up the grid workflow.",
+        "**Reservations CSV date filter** — current CSV export exports the entire loaded list; add from/to date filter so the export respects the booking-report date range.",
+        "**Guest merge multi-profile** — current merge endpoint handles one source → one target at a time; if 3+ duplicates exist, staff must merge repeatedly. A batch merge would handle all profiles → one target in a single call.",
         "Add missing operator/admin reports:",
         "revenue",
         "occupancy",
