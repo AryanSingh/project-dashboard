@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-13T03:31:31.009Z",
+  "generatedAt": "2026-05-13T15:31:57.147Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -11,7 +11,7 @@
       "name": "channel-manager",
       "state": "in_progress",
       "progressPercent": 100,
-      "progressLabel": "isVip fix, inventory nav, CSV export, guest deduplication merge",
+      "progressLabel": "test expansion, On Hold batch-confirm, grid today highlight, guest sort",
       "lastUpdated": "2026-05-12",
       "repoPathName": "channel-manager",
       "hasAgentsDoc": true,
@@ -19,12 +19,23 @@
         "branch": "codex/runtime-stabilization-pass",
         "gitRootType": "dedicated",
         "hasRemote": true,
-        "dirtyCount": 60
+        "dirtyCount": 63
       },
       "currentGoal": [
         "Deliver Phase 2 booking operations (Make A Reservation live, Hold Booking) and continue closing the remaining competitor parity gaps."
       ],
       "doneRecently": [
+        "**Smoke tests expanded** — 2 new test methods added to `SeededEndpointsSmokeTests.cs`:",
+        "`GuestCrud_CreateSearchMergeDeduplicate_Work` — covers `POST /guests` (create + 409 duplicate), `GET /guests?search=`, `GET /guests/{id}` with `isVip` assertion, `GET /guests/duplicates`",
+        "`ReservationSearch_AndFolioPayment_Work` — covers `GET /reservations?search=RES`, `GET /reservations?guestId=`, folio `GET` with `folioId` assertion, `POST /folios/{id}/payments`",
+        "Suite now has **8 test methods** total; expected Passed: 8, Failed: 0 on seeded stack",
+        "**Reservations On Hold quick-filter + batch Confirm** — status filter chips (All / OnHold / Confirmed / CheckedIn / CheckedOut / Cancelled) above the list; OnHold chip shows live count badge; \"Confirm All (N)\" button appears when OnHold filter active — calls `PUT /reservations/{id}/status Confirmed` for each hold sequentially; `reservationQuery` now passes `status` param so the list filters server-side",
+        "**Inventory Grid today highlight** — `isSameDay` check on each date header + cell; today's header gets `bg-primary/10` + bottom border accent + primary-coloured text; today's cells get `ring-1 ring-inset ring-primary/40`",
+        "**GuestProfiles sort controls** — sortable table headers: Guest (↑↓ by last/first name), Stays (↑↓ by bookingCount), Total Spent (↑↓ by totalSpent); client-side sort on fetched list; clicking the same header toggles direction; default sort: name A→Z",
+        "**FrontOffice board date picker** — already implemented (date `useState` + `<input type=\"date\">` wired to `today-board/{id}?date=`); verified present and functional",
+        "**Inventory Grid keyboard navigation**: `useEffect` global `keydown` listener — `ArrowLeft` calls `goBack`, `ArrowRight` calls `goForward`; guard skips when a cell is being edited or focus is on an input. `goBack/goForward/goToday` wrapped in `useCallback` for stable references. Hint text updated to mention `← →`.",
+        "**CSV export date range filter**: Export now calls the API directly with `from`, `to`, `status`, `search` params (up to 500 rows). Filename includes the date range. Button shows \"Exporting…\" while fetching. Uses `csvExporting` state instead of the existing `reservationQuery` data.",
+        "**Batch guest merge**: `handleMergeAll(targetId)` loops all non-target duplicate profiles sequentially, calling `POST /guests/{sourceId}/merge-into/{targetId}` for each. Shows per-step progress text (\"Merging 1 of 3…\"). `mergeError` and `merging` states replace the old `useMutation`. Backdrop click is disabled while merging. Modal close resets error state.",
         "**isVip fix**: Added `isVip = guest.IsVip` to both list and detail projections in `GuestsController`. Added `isVip: boolean` to `GuestDto` interface in `api.ts`. Removed `as any` casts from `GuestDetail.tsx` and `GuestProfiles.tsx`.",
         "**Inventory Grid date navigation**: Changed `from` from fixed `startOfToday()` to navigable state. Added `WINDOW = 14` (2-week view). Prev/Next/Today buttons in a grouped border control. `dateHeaders` now generates 14 items instead of 90 — grid is much more usable.",
         "**Reservations CSV export**: \"Export CSV\" button in Reservations header — generates client-side CSV (Ref, Status, Check-In, Check-Out, Total, Channel) from the already-fetched list and triggers a download. No new backend endpoint needed.",
@@ -315,11 +326,11 @@
         "The repo now has a working local backend build/start path and property bootstrap wiring, but runtime correctness beyond targeted smoke/build checks still needs module-by-module validation."
       ],
       "nextUp": [
-        "**CI green run** — validate first green GitHub Actions run; all jobs (backend unit, acceptance, browser-e2e) now exist in CI.",
-        "**Hold Booking batch convert** — Reservations list could show an \"On Hold\" tab/badge with a \"Convert All\" bulk action for front-desk morning workflow.",
-        "**Inventory Grid keyboard nav** — while the 2-week window is much better, adding left/right arrow key navigation for power users would speed up the grid workflow.",
-        "**Reservations CSV date filter** — current CSV export exports the entire loaded list; add from/to date filter so the export respects the booking-report date range.",
-        "**Guest merge multi-profile** — current merge endpoint handles one source → one target at a time; if 3+ duplicates exist, staff must merge repeatedly. A batch merge would handle all profiles → one target in a single call.",
+        "**CI green run** — trigger a push to `codex/runtime-stabilization-pass` and confirm all CI jobs pass: backend unit, acceptance (Reqnroll), browser-e2e (Playwright).",
+        "**Reservations pagination** — list fetches up to 100 rows; add Load More / pagination controls for properties with large reservation volume.",
+        "**Housekeeping assignment** — `HousekeepingTask.AssignedToUserId` is stored but not exposed in the create form; add an assignee select that lists team members (from tenant-admin users) so tasks can be delegated.",
+        "**Guest VIP toggle** — `isVip` is returned and displayed but staff can't set it from the UI; add a toggle on GuestDetail that calls `PATCH /guests/{id}` with `{ isVip: true/false }`.",
+        "**Channels sync logs** — show the 10 most recent sync log entries per channel on the channel card (status, timestamp, error message) so staff can diagnose push failures without checking server logs.",
         "Add missing operator/admin reports:",
         "revenue",
         "occupancy",
@@ -391,10 +402,10 @@
       "repoPathName": "pdf-esigner",
       "hasAgentsDoc": true,
       "git": {
-        "branch": "codex/sms-delivery-channel",
+        "branch": "master",
         "gitRootType": "shared",
         "hasRemote": true,
-        "dirtyCount": 2
+        "dirtyCount": 0
       },
       "currentGoal": [
         "Push the hardened release batch, keep the public app/docs truthful about what is live, and deploy only the stable customer-facing surface while leaving incomplete Aadhaar/India-specific flows disabled by default."
