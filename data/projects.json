@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-13T15:31:57.147Z",
+  "generatedAt": "2026-05-14T03:31:00.267Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -405,7 +405,7 @@
         "branch": "master",
         "gitRootType": "shared",
         "hasRemote": true,
-        "dirtyCount": 0
+        "dirtyCount": 2
       },
       "currentGoal": [
         "Push the hardened release batch, keep the public app/docs truthful about what is live, and deploy only the stable customer-facing surface while leaving incomplete Aadhaar/India-specific flows disabled by default."
