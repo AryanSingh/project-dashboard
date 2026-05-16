@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T15:32:19.268Z",
+  "generatedAt": "2026-05-16T03:31:01.986Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -166,7 +166,7 @@
         "branch": "master",
         "gitRootType": "shared",
         "hasRemote": false,
-        "dirtyCount": 1
+        "dirtyCount": 12
       },
       "currentGoal": [
         "Make `detective_dog_ai` reproducible enough to become the explicit primary pipeline, while keeping `detective-biscuit-factory` as a documented reference until that decision is formalized."
@@ -306,7 +306,7 @@
       "name": "channel-manager",
       "state": "in_progress",
       "progressPercent": 0,
-      "progressLabel": "73 tasks complete across Phases 1–3 — full Asiatech parity + ops suite",
+      "progressLabel": "95 tasks complete — full Asiatech parity + competitive gap closure + supervised demo runner",
       "lastUpdated": "2026-05-15",
       "repoPathName": "channel-manager",
       "hasAgentsDoc": true,
@@ -314,7 +314,7 @@
         "branch": "codex/runtime-stabilization-pass",
         "gitRootType": "dedicated",
         "hasRemote": true,
-        "dirtyCount": 4
+        "dirtyCount": 0
       },
       "currentGoal": [],
       "doneRecently": [],
@@ -323,7 +323,7 @@
       "blockers": [],
       "repoNotes": [],
       "narrative": {
-        "currentGoal": "Ship a production-ready hotel channel manager with full feature parity vs Asiatech, with all booking operations, reports, integrations, and ops tooling live. ---",
+        "currentGoal": "Ship a production-ready hotel channel manager with full feature parity vs Asiatech, plus all competitive gaps closed, with every booking operation, report, integration, and ops tool live. ---",
         "inProgress": ""
       }
     }
