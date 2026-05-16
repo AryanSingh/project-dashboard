@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-16T03:31:01.986Z",
+  "generatedAt": "2026-05-16T15:30:50.288Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -314,7 +314,7 @@
         "branch": "codex/runtime-stabilization-pass",
         "gitRootType": "dedicated",
         "hasRemote": true,
-        "dirtyCount": 0
+        "dirtyCount": 2
       },
       "currentGoal": [],
       "doneRecently": [],
