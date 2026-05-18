@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-17T15:31:36.901Z",
+  "generatedAt": "2026-05-18T03:32:18.792Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -306,7 +306,7 @@
       "name": "channel-manager",
       "state": "in_progress",
       "progressPercent": 0,
-      "progressLabel": "95 tasks complete — full Asiatech parity + competitive gap closure + supervised demo runner",
+      "progressLabel": "155 tasks complete — global channel manager feature set (20 OTAs, 2-way sync, GST, booking engine, group bookings, city ledger, GDS, iCal, revenue mgmt)",
       "lastUpdated": "2026-05-15",
       "repoPathName": "channel-manager",
       "hasAgentsDoc": true,
