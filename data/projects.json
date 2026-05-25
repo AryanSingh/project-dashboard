@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T03:32:41.160Z",
+  "generatedAt": "2026-05-25T15:31:33.842Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -163,10 +163,10 @@
       "repoPathName": "pawPetrol",
       "hasAgentsDoc": true,
       "git": {
-        "branch": "master",
-        "gitRootType": "shared",
+        "branch": "n/a",
+        "gitRootType": "none",
         "hasRemote": false,
-        "dirtyCount": 12
+        "dirtyCount": 0
       },
       "currentGoal": [
         "Make `detective_dog_ai` reproducible enough to become the explicit primary pipeline, while keeping `detective-biscuit-factory` as a documented reference until that decision is formalized."
@@ -254,10 +254,10 @@
       "repoPathName": "verifyAI",
       "hasAgentsDoc": true,
       "git": {
-        "branch": "master",
-        "gitRootType": "shared",
+        "branch": "n/a",
+        "gitRootType": "none",
         "hasRemote": false,
-        "dirtyCount": 1
+        "dirtyCount": 0
       },
       "currentGoal": [
         "Mature the current proof of concept into a documented, testable product for evaluating challenge or verification-system resilience."
