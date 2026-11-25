@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-11T03:50:32.063Z",
+  "generatedAt": "2026-11-25T06:02:01.686Z",
   "summary": {
     "totalProjects": 4,
     "activeProjects": 4,
@@ -12,19 +12,20 @@
       "state": "in_progress",
       "progressPercent": 98,
       "progressLabel": "Release-facing app/docs/security work is merged; Aadhaar work is hardened but gated off, India Desk is disabled, and remaining tasks are deployment, launch operations, and monitored rollout",
-      "lastUpdated": "2026-05-04",
+      "lastUpdated": "2026-09-09",
       "repoPathName": "pdf-esigner",
       "hasAgentsDoc": true,
       "git": {
         "branch": "master",
         "gitRootType": "shared",
         "hasRemote": true,
-        "dirtyCount": 3
+        "dirtyCount": 0
       },
       "currentGoal": [
         "Push the hardened release batch, keep the public app/docs truthful about what is live, and deploy only the stable customer-facing surface while leaving incomplete Aadhaar/India-specific flows disabled by default."
       ],
       "doneRecently": [
+        "Bounded high-zoom mobile PDF rendering: page canvases have an 8-million-pixel ceiling and compact viewers render only the active page once zoomed beyond fit scale.",
         "Hardened the Aadhaar eSign callback flow before allowing it anywhere near production:",
         "added callback-secret validation for Digio webhook handling",
         "added the missing `aadhaar-esign-status` edge function",
@@ -314,7 +315,7 @@
         "branch": "codex/runtime-stabilization-pass",
         "gitRootType": "dedicated",
         "hasRemote": true,
-        "dirtyCount": 6
+        "dirtyCount": 0
       },
       "currentGoal": [],
       "doneRecently": [],
